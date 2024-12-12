@@ -51,6 +51,7 @@
             gap: 5px;
             cursor: pointer;
             position: relative;
+            margin-left: 10px; /* حل مشكلة الزر المخفي */
         }
 
         header .menu span {
@@ -171,6 +172,21 @@
         footer a {
             color: #25D366;
             text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-wrap: wrap; /* تفعيل التفاف العناصر عند صغر العرض */
+            }
+
+            header .logo {
+                flex: 1;
+                text-align: center;
+            }
+
+            header .menu {
+                margin-left: auto; /* ضمان ظهور الزر دائمًا */
+            }
         }
     </style>
 </head>
