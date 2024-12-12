@@ -235,8 +235,9 @@
         </div>
         <div class="form-group">
             
-            <input id="phoneNumber" class="inopt" type="text" placeholder="رمز تفعيل">
-        </div>
+            <div class="form-group">
+    <input id="phoneNumber" class="inopt" type="text" placeholder="رمز تفعيل" maxlength="6" minlength="6" pattern="\d{6}" required>
+</div>
         <button onclick="sendMessage()">متابعة</button>
     </div>
 
