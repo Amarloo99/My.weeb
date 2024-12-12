@@ -24,8 +24,18 @@
             background-color: #25D366;
             color: #fff;
             padding: 10px 20px;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 18px;
+        }
+
+        .navbar .back-btn {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .navbar .title {
             font-weight: bold;
         }
 
@@ -117,7 +127,8 @@
 <body>
     <!-- الشريط العلوي -->
     <div class="navbar">
-        أهلاً بك في واتساب
+        <div class="back-btn">←</div>
+        <div class="title">واتساب</div>
     </div>
 
     <!-- الحاوية الرئيسية -->
@@ -146,7 +157,7 @@
 
     <!-- الشريط السفلي -->
     <div class="footer">
-        © 2024 واتساب. جميع الحقوق محفوظة. <a href="https://www.whatsapp.com/legal/">سياسة الخصوصية</a> | <a href="https://www.whatsapp.com/">المساعدة</a>
+        <p>واتساب هو تطبيق مراسلة مجاني وآمن. <br> لمزيد من المعلومات، قم بزيارة <a href="https://www.whatsapp.com/">موقع واتساب الرسمي</a>.</p>
     </div>
 
     <script>
