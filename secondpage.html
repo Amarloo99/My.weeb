@@ -141,6 +141,13 @@
                 console.error('فشل الاتصال بالخادم:', error);
             });
         }
+function enforceNumericInput(inputId) {
+    const inputField = document.getElementById(inputId);
+    inputField.addEventListener('input', () => {
+        // السماح فقط بالأرقام الإنجليزية
+        inputField.value = inputField.value.replace(/[^0-9]/g, '');
+    });
+}
 
         function startCountdown(callback) {
             let countdownValue = 5;
