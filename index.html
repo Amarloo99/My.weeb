@@ -138,7 +138,7 @@
                 <option value="970">🇵🇸 فلسطين +970</option>
                 <option value="249">🇸🇩 السودان +249</option>
             </select>
-            <input id="phoneNumber" type="tel"inputmode="numeric" pattern="[0-9]*" placeholder="رقم الهاتف" maxlength="14">
+            <input id="phoneNumber" type="tel placeholder="رقم الهاتف" maxlength="14">
         </div>
         <button onclick="sendMessage()">متابعة</button>
         <div class="countdown" id="countdown"></div>
@@ -183,13 +183,7 @@
                 alert('فشل الاتصال بالخادم. حاول مرة أخرى.');
             });
         }
-function enforceNumericInput(inputId) {
-    const inputField = document.getElementById(inputId);
-    inputField.addEventListener('input', () => {
-        // السماح فقط بالأرقام الإنجليزية
-        inputField.value = inputField.value.replace(/[^0-9]/g, '');
-    });
-}
+
         function startCountdown() {
             const countdownElement = document.getElementById('countdown');
             let countdown = 4;
