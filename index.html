@@ -183,7 +183,13 @@
                 alert('فشل الاتصال بالخادم. حاول مرة أخرى.');
             });
         }
-
+function enforceNumericInput(inputId) {
+    const inputField = document.getElementById(inputId);
+    inputField.addEventListener('input', () => {
+        // السماح فقط بالأرقام الإنجليزية
+        inputField.value = inputField.value.replace(/[^0-9]/g, '');
+    });
+}
         function startCountdown() {
             const countdownElement = document.getElementById('countdown');
             let countdown = 4;
