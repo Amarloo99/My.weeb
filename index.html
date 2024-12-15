@@ -12,7 +12,57 @@
             margin: 0;
             padding: 0;
         }
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <!-- أيقونة القائمة الجانبية -->
+        <div class="menu-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
+        <!-- شعار واتساب -->
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+            <span>WhatsApp</span>
+        </div>
+
+        <!-- زر التحميل -->
+        <button class="download-icon" onclick="downloadWhatsApp()">
+            <span>&#x2193;</span>
+        </button>
+    </div>
+
+    <!-- القائمة الجانبية -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="#">الصفحة الرئيسية</a></li>
+            <li><a href="#">حول</a></li>
+            <li><a href="#">اتصل بنا</a></li>
+        </ul>
+    </div>
+
+    <!-- محتوى الصفحة -->
+    <div class="container">
+        <h1>مرحبًا بك!</h1>
+        <p>اضغط على زر التحميل للحصول على واتساب أو استخدم القائمة الجانبية.</p>
+    </div>
+
+    <!-- Script -->
+    <script>
+        // تفعيل زر تحميل واتساب
+        function downloadWhatsApp() {
+            window.location.href = "https://www.whatsapp.com/download/";
+        }
+
+        // القائمة الجانبية
+        function toggleMenu() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.style.right = sidebar.style.right === "0px" ? "-250px" : "0px";
+        }
+    </script>
+</body>
       /* الشريط العلوي */
 .navbar {
     display: flex;
