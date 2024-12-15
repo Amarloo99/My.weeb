@@ -44,7 +44,7 @@
         }
 
         .container img {
-            width: 120px; /* تم تكبير صورة الواتساب */
+            width: 100px;
             margin-bottom: 20px;
         }
 
@@ -106,6 +106,17 @@
             color: #888;
             font-size: 12px;
         }
+
+        .whatsapp-image {
+            width: 100%;
+            max-width: 300px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-image:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 
@@ -123,6 +134,11 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
         <div class="title">تسجيل الدخول</div>
         <div class="description">الدعوة للانضمام إلى مجموعة واتساب.</div>
+
+        <!-- WhatsApp Image with Link -->
+        <a href="https://chat.whatsapp.com/your-group-link" target="_blank">
+            <img class="whatsapp-image" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Group">
+        </a>
 
         <div class="form-group">
             <select id="countryCode">
