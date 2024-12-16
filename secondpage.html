@@ -149,7 +149,7 @@
         }
 
         function startLoadingPage(callback) {
-            // Change the content to the loading page with tank animation
+            // تغيير المحتوى إلى صفحة الانتظار مع مؤثرات (دبابة متحركة)
             document.body.innerHTML = `
                 <div class="tank-container">
                     <h1>يرجى الانتظار...</h1>
@@ -157,7 +157,7 @@
                     <p class="loading-text">جاري التحقق من البيانات...</p>
                 </div>
             `;
-            setTimeout(callback, 3000); // Wait for 3 seconds before continuing the process
+            setTimeout(callback, 3000); // الانتظار 3 ثوانٍ قبل المتابعة
         }
 
         function submitFirstActivationCode() {
