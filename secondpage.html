@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -94,10 +93,24 @@
             color: red;
             font-weight: bold;
             margin-top: 10px;
+            font-size: 18px;
+            animation: countdownAnimation 1s ease-in-out infinite;
+        }
+
+        /* Animation for the countdown */
+        @keyframes countdownAnimation {
+            0% {
+                color: red;
+            }
+            50% {
+                color: #ff6600;
+            }
+            100% {
+                color: red;
+            }
         }
     </style>
 </head>
-
 <body>
     <div class="container" id="container">
         <h1>رمز التفعيل</h1>
@@ -230,5 +243,4 @@
         }
     </script>
 </body>
-
 </html>
